@@ -13,8 +13,7 @@ class DevController extends Controller
     /**
      * @Route("/", name="dev_index")
      */
-    public function indexAction()
-    {
+    public function indexAction(){
         return $this->render('PjplDevBundle:Dev:index.html.twig');
     }
 }

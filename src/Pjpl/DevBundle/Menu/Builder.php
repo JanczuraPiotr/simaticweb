@@ -13,6 +13,7 @@ class Builder {
 		$menuSimaticWeb = $menu->addChild('SimaticWeb');
 
 		$menuSimaticServer = $menu->addChild('SimaticServer');
+		$menuSimaticServer->addChild('test servera');
 
 		return $menu;
 
