@@ -1,0 +1,2 @@
+pjpl_dev_bundle:
+    resource: "@PjplDevBundle/Resources/config/routing.yml"

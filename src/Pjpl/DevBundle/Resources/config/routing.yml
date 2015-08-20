@@ -1,0 +1,4 @@
+pjpl_dev_dev_controller:
+  resource: "@PjplDevBundle/Controller/DevController.php"
+  type: annotation
+
