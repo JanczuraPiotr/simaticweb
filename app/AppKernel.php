@@ -20,6 +20,7 @@ class AppKernel extends Kernel
 						new Knp\Bundle\MenuBundle\KnpMenuBundle(),
 
             new Pjpl\DevBundle\PjplDevBundle(),
+            new Pjpl\SimaticServerBundle\PjplSimaticServerBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

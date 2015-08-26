@@ -1,2 +1,6 @@
+pjpl_simatic_server:
+    resource: "@PjplSimaticServerBundle/Resources/config/routing.yml"
+    prefix:   /
+
 pjpl_dev_bundle:
     resource: "@PjplDevBundle/Resources/config/routing.yml"

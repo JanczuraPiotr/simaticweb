@@ -1,0 +1,3 @@
+pjpl_simatic_server_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: PjplSimaticServerBundle:Default:index }
