@@ -11,9 +11,14 @@ class Builder {
 		$menu->setChildrenAttribute('class', 'menu-main');
 
 		$menuSimaticWeb = $menu->addChild('SimaticWeb');
+		$menuSimaticWeb->addChild("Przegląd archiwum", [
+				'route' => 'dev_przeglad_archiwum'
+		] );
 
 		$menuSimaticServer = $menu->addChild('SimaticServer');
-		$menuSimaticServer->addChild('test servera');
+		$menuSimaticServer->addChild('test servera',[
+				'route' => 'simatic_server'
+		]);
 
 		return $menu;
 

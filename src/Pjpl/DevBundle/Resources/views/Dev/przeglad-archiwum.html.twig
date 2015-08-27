@@ -1,0 +1,50 @@
+{% extends "PjplDevBundle::window.html.twig" %}
+
+{% block body %}
+	<div class="count">
+		{{ zrzuty.getTotalItemCount }}
+	</div>
+
+
+		<table>
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>timestamp</th>
+					<th>blok danych </th>
+					<th>wejścia</th>
+					<th>wyjścia</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for zrzut in zrzuty %}
+					<tr>
+						<td> {{ zrzut.id }} </td>
+						<td> {{ zrzut.timestamp }} </td>
+						<td>
+							{% for el in zrzut.db %}
+								{{ el }}
+							{% endfor %}
+						</td>
+						<td>
+							{% for el in zrzut.pa %}
+								{{ el }}
+							{% endfor %}
+						</td>
+						<td>
+							{% for el in zrzut.pe %}
+								{{ el }}
+							{% endfor %}
+						</td>
+					</tr>
+
+				{% endfor %}
+			</tbody>
+		</table>
+
+
+		<div class="navigation">
+			{{ knp_pagination_render(zrzuty) }}
+		</div>
+
+{% endblock %}

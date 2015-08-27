@@ -6,9 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Brama
- *
+ * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(name="brama")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Pjpl\SimaticServerBundle\Entity\BramaRepository")
  */
 class Brama
 {
@@ -21,21 +21,18 @@ class Brama
 
     /**
      * @var string
-     *
      * @ORM\Column(name="db", type="blob", nullable=false)
      */
     private $db;
 
     /**
      * @var string
-     *
      * @ORM\Column(name="pa", type="blob", nullable=false)
      */
     private $pa;
 
     /**
      * @var string
-     *
      * @ORM\Column(name="pe", type="blob", nullable=false)
      */
     private $pe;
@@ -67,7 +64,7 @@ class Brama
     /**
      * Get timestamp
      *
-     * @return integer 
+     * @return integer
      */
     public function getTimestamp()
     {
@@ -90,7 +87,7 @@ class Brama
     /**
      * Get db
      *
-     * @return string 
+
      */
     public function getDb()
     {
@@ -113,11 +110,10 @@ class Brama
     /**
      * Get pa
      *
-     * @return string 
      */
     public function getPa()
     {
-        return $this->pa;
+			return $this->pa;
     }
 
     /**
@@ -136,20 +132,30 @@ class Brama
     /**
      * Get pe
      *
-     * @return string 
+
      */
     public function getPe()
     {
-        return $this->pe;
+			return $this->pe;
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
     }
+
+		/**
+		 * @ORM\PostLoad
+		 */
+		public function postLoad(){
+			$this->db = unpack("c*",stream_get_contents($this->db));
+			$this->pa = unpack("c*",stream_get_contents($this->pa));
+			$this->pe = unpack("c*",stream_get_contents($this->pe));
+		}
+
 }
