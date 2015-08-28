@@ -18,21 +18,22 @@
 			</thead>
 			<tbody>
 				{% for zrzut in zrzuty %}
+
 					<tr>
 						<td> {{ zrzut.id }} </td>
-						<td> {{ zrzut.timestamp }} </td>
+						<td> {{ zrzut.timestamp|slice(0,-3)|date("Y-m-d H:i:s")}} <br> {{ zrzut.timestamp|slice(10,3) }} [ms] </td>
 						<td>
-							{% for el in zrzut.db %}
+							{% for el in zrzut.strHexDb %}
 								{{ el }}
 							{% endfor %}
 						</td>
 						<td>
-							{% for el in zrzut.pa %}
+							{% for el in zrzut.strHexPa %}
 								{{ el }}
 							{% endfor %}
 						</td>
 						<td>
-							{% for el in zrzut.pe %}
+							{% for el in zrzut.strHexPe %}
 								{{ el }}
 							{% endfor %}
 						</td>

@@ -153,9 +153,39 @@ class Brama
 		 * @ORM\PostLoad
 		 */
 		public function postLoad(){
-			$this->db = unpack("c*",stream_get_contents($this->db));
-			$this->pa = unpack("c*",stream_get_contents($this->pa));
-			$this->pe = unpack("c*",stream_get_contents($this->pe));
+			$this->db = unpack("C*",stream_get_contents($this->db));
+			$this->db = array_splice($this->db, 0);
+			$this->pa = unpack("C*",stream_get_contents($this->pa));
+			$this->pa = array_splice($this->pa, 0);
+			$this->pe = unpack("C*",stream_get_contents($this->pe));
+			$this->pe = array_splice($this->pe, 0);
+		}
+		public function getStrHexDb(){
+			if( null === $this->strHexDb ){
+				foreach ($this->db as $k => $v){
+					$this->strHexDb[] = sprintf("%02X", $v);
+				}
+			}
+			return $this->strHexDb;
+		}
+		public function getStrHexPa(){
+			if( null === $this->strHexPa ){
+				foreach ($this->pa as $k => $v){
+					$this->strHexPa[] = sprintf("%02X", $v);
+				}
+			}
+			return $this->strHexPa;
+		}
+		public function getStrHexPe(){
+			if( null === $this->strHexPe ){
+				foreach ($this->pe as $k => $v){
+					$this->strHexPe[] = sprintf("%02X", $v);
+				}
+			}
+			return $this->strHexPe;
 		}
 
+		private $strHexDb = null;
+		private $strHexPa = null;
+		private $strHexPe = null;
 }

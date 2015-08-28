@@ -4,6 +4,7 @@ namespace Pjpl\DevBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Pjpl\SimaticServerBundle\Utils\S7;
 
 /**
  * @Route("/dev", name="dev")
@@ -30,12 +31,7 @@ class DevController extends Controller
 					$request->query->getInt('page', 1),
 					10
 			);
-			foreach ($zrzuty as $key => $value) {
-				dump( $value->getDb());
-				dump( $value->getPa());
-				dump( $value->getPe());
-			}
+
 			return $this->render('PjplDevBundle:Dev:przeglad-archiwum.html.twig',['zrzuty' => $zrzuty]);
-//			return $this->render('PjplDevBundle:Dev:przeglad-archiwum.html.twig');
 		}
 }
