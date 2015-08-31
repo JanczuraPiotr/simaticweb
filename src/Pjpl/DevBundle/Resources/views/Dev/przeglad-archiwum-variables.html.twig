@@ -1,0 +1,64 @@
+{% extends "PjplDevBundle::window.html.twig" %}
+
+{% block body %}
+	<div class="count">
+		{{ zrzuty.getTotalItemCount }}
+	</div>
+
+
+		<table>
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>timestamp</th>
+					<th>input 0</th>
+					<th>input 1</th>
+					<th>input 2</th>
+					<th>input 3</th>
+					<th>input 4</th>
+					<th>input 5</th>
+					<th>input 6</th>
+					<th>input 7</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for zrzut in zrzuty %}
+					<tr>
+						<td> {{ zrzut.id }} </td>
+						<td> {{ zrzut.timestamp|slice(0,-3)|date("Y-m-d H:i:s")}} <br> {{ zrzut.timestamp|slice(10,3) }} [ms] </td>
+						<td>
+							{{ ( zrzut.variablesAccess.input0 ? 'on' : 'off' ) }}
+						</td>
+						<td>
+							{{ ( zrzut.variablesAccess.input1 ? 'on' : 'off' ) }}
+						</td>
+						<td>
+							{{ ( zrzut.variablesAccess.input2 ? 'on' : 'off' ) }}
+						</td>
+						<td>
+							{{ ( zrzut.variablesAccess.input3 ? 'on' : 'off' ) }}
+						</td>
+						<td>
+							{{ ( zrzut.variablesAccess.input4 ? 'on' : 'off' ) }}
+						</td>
+						<td>
+							{{ ( zrzut.variablesAccess.input5 ? 'on' : 'off' ) }}
+						</td>
+						<td>
+							{{ ( zrzut.variablesAccess.input6 ? 'on' : 'off' ) }}
+						</td>
+						<td>
+							{{ ( zrzut.variablesAccess.input7 ? 'on' : 'off' ) }}
+						</td>
+					</tr>
+
+				{% endfor %}
+			</tbody>
+		</table>
+
+
+		<div class="navigation">
+			{{ knp_pagination_render(zrzuty) }}
+		</div>
+
+{% endblock %}

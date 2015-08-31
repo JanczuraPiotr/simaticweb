@@ -3,7 +3,7 @@
 namespace Pjpl\SimaticServerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Pjpl\SimaticServerBundle\Utils\BramaVariables;
 /**
  * Brama
  * @ORM\HasLifecycleCallbacks()
@@ -160,6 +160,16 @@ class Brama
 			$this->pe = unpack("C*",stream_get_contents($this->pe));
 			$this->pe = array_splice($this->pe, 0);
 		}
+		/**
+		 * @return BramaVariables
+		 */
+		public function getVariablesAccess(){
+			if( ! isset($this->variablesAccess)){
+				$this->variableAccess = new BramaVariables($this);
+			}
+			return $this->variableAccess;
+		}
+
 		public function getStrHexDb(){
 			if( null === $this->strHexDb ){
 				foreach ($this->db as $k => $v){
@@ -188,4 +198,8 @@ class Brama
 		private $strHexDb = null;
 		private $strHexPa = null;
 		private $strHexPe = null;
+		/**
+		 * @var BramaVariables
+		 */
+		private $variablesAccess;
 }

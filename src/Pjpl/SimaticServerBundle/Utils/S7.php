@@ -46,7 +46,12 @@ class S7 {
     const S7TypeBool = 1;
     const S7TypeInt = 1;
 
-    // Returns the bit at Pos.Bit
+		/**
+		 * @param array $buffer
+		 * @param int $pos
+		 * @param int $bit
+		 * @return boolean
+		 */
     public static function getBitAt(array $buffer, $pos, $bit)
     {
 			$value = $buffer[$pos] & 0x0FF;
@@ -57,72 +62,73 @@ class S7 {
 			if ($bit > 7 ) {
 				$bit = 7;
 			}
-			return (boolean)( ($value & $mask[$bit] ) != 0 );
-    }
-    /**
-     * Returns a 16 bit unsigned value : from 0 to 65535 (2^16-1)
-     * @param Buffer
-     * @param Pos start position
-     * @return
-     */
-    public static function getWordAt(array $buffer, $pos)
-    {
-			$hi = ($buffer[$pos] & 0x00FF);
-			$lo = ($buffer[$pos+1] & 0x00FF);
-			return ( $hi << 8 ) + $lo;
+			return (boolean)( ( $value & $mask[$bit] ) != 0 );
     }
 
-    // Returns a 16 bit signed value : from -32768 to 32767
-    public static function GetShortAt(array $buffer, $pos)
-    {
-        $hi = ($buffer[$pos]);
-        $lo = ($buffer[$pos+1] & 0x00FF);
-        return ( ( $hi << 8 ) + $lo );
-    }
+//    /**
+//     * Returns a 16 bit unsigned value : from 0 to 65535 (2^16-1)
+//     * @param Buffer
+//     * @param Pos start position
+//     * @return
+//     */
+//    public static function getWordAt(array $buffer, $pos)
+//    {
+//			$hi = ($buffer[$pos] & 0x00FF);
+//			$lo = ($buffer[$pos+1] & 0x00FF);
+//			return ( $hi << 8 ) + $lo;
+//    }
 
-    // Returns a 32 bit unsigned value : from 0 to 4294967295 (2^32-1)
-		/**
-		 * @return long
-		 */
-    public static function getDWordAt(array $buffer, $pos)
-    {
-			$result = 0;
-			$result = ($buffer[$pos] & 0x0FF );
-			$result <<= 8;
-			$result += ($buffer[$pos+1] & 0x0FF);
-			$result <<= 8;
-			$result += ($buffer[$pos+2] & 0x0FF);
-			$result <<= 8;
-			$result += ($buffer[$pos+3] & 0x0FF);
-			return $result;
-    }
+//    // Returns a 16 bit signed value : from -32768 to 32767
+//    public static function GetShortAt(array $buffer, $pos)
+//    {
+//        $hi = ($buffer[$pos]);
+//        $lo = ($buffer[$pos+1] & 0x00FF);
+//        return ( ( $hi << 8 ) + $lo );
+//    }
 
-    // Returns a 32 bit signed value : from 0 to 4294967295 (2^32-1)
-		/**
-		 * @return int
-		 */
-    public static function getDIntAt(array $buffer, $pos)
-    {
-			$result;
-			$result =  $buffer[$pos];
-			$result <<= 8;
-			$result += ($buffer[$pos+1] & 0x0FF);
-			$result <<= 8;
-			$result += ($buffer[$pos+2] & 0x0FF);
-			$result <<= 8;
-			$result += ($buffer[$pos+3] & 0x0FF);
-			return $result;
-    }
+//    // Returns a 32 bit unsigned value : from 0 to 4294967295 (2^32-1)
+//		/**
+//		 * @return long
+//		 */
+//    public static function getDWordAt(array $buffer, $pos)
+//    {
+//			$result = 0;
+//			$result = ($buffer[$pos] & 0x0FF );
+//			$result <<= 8;
+//			$result += ($buffer[$pos+1] & 0x0FF);
+//			$result <<= 8;
+//			$result += ($buffer[$pos+2] & 0x0FF);
+//			$result <<= 8;
+//			$result += ($buffer[$pos+3] & 0x0FF);
+//			return $result;
+//    }
 
-    // Returns a 32 bit floating point
-		/**
-		 * @return decimal
-		 */
-    public static function getFloatAt(array $buffer, $pos)
-    {
-			$intFloat = $this->getDIntAt($buffer, $pos);
-			return floatval($intFloat);
-    }
+//    // Returns a 32 bit signed value : from 0 to 4294967295 (2^32-1)
+//		/**
+//		 * @return int
+//		 */
+//    public static function getDIntAt(array $buffer, $pos)
+//    {
+//			$result;
+//			$result =  $buffer[$pos];
+//			$result <<= 8;
+//			$result += ($buffer[$pos+1] & 0x0FF);
+//			$result <<= 8;
+//			$result += ($buffer[$pos+2] & 0x0FF);
+//			$result <<= 8;
+//			$result += ($buffer[$pos+3] & 0x0FF);
+//			return $result;
+//    }
+
+//    // Returns a 32 bit floating point
+//		/**
+//		 * @return decimal
+//		 */
+//    public static function getFloatAt(array $buffer, $pos)
+//    {
+//			$intFloat = $this->getDIntAt($buffer, $pos);
+//			return floatval($intFloat);
+//    }
 
 //     //Returns an ASCII string
 //    public static function getStringAt(array $buffer, $pos, $maxLen)

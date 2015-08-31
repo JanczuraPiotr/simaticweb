@@ -3,8 +3,11 @@
 namespace Pjpl\DevBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Pjpl\SimaticServerBundle\Utils\S7;
+
+use Pjpl\SimaticServerBundle\Logic\ShowArchiwumDump;
+use Pjpl\SimaticServerBundle\Logic\ShowArchiwumVariables;
 
 /**
  * @Route("/dev", name="dev")
@@ -19,19 +22,29 @@ class DevController extends Controller
 			return $this->render('PjplDevBundle:Dev:index.html.twig');
     }
 		/**
-		 * @Route("/przeglad-archiwum", name="dev_przeglad_archiwum")
+		 * @Route("/przeglad-archiwum-dump", name="dev_przeglad_archiwum_dump")
 		 */
-		public function przegladArchiwumAction(\Symfony\Component\HttpFoundation\Request $request){
+		public function przegladArchiwumDumpAction(Request $request){
 			$paginator = $this->get('knp_paginator');
 			$em = $this->getDoctrine()->getManager();
-			$BramaRepo = $em->getRepository("PjplSimaticServerBundle:Brama");
+			$bramaRepo = $em->getRepository("PjplSimaticServerBundle:Brama");
 
-			$zrzuty = $paginator->paginate(
-					$BramaRepo->queryForPaginator(),
-					$request->query->getInt('page', 1),
-					10
-			);
+			$logic = new ShowArchiwumDump($paginator, $bramaRepo, $request->query->getInt('page', 1), 10);
+			$zrzuty = $logic->logic();
 
-			return $this->render('PjplDevBundle:Dev:przeglad-archiwum.html.twig',['zrzuty' => $zrzuty]);
+			return $this->render('PjplDevBundle:Dev:przeglad-archiwum-dump.html.twig',['zrzuty' => $zrzuty]);
+		}
+		/**
+		 * @Route("/przegladaj-archiwum-variables", name="dev_przeglad_archiwum_variables")
+		 */
+		public function przegladArchiwumVariablesAction(Request $request){
+			$paginator = $this->get('knp_paginator');
+			$em = $this->getDoctrine()->getManager();
+			$bramaRepo = $em->getRepository('PjplSimaticServerBundle:Brama');
+
+			$logic = new ShowArchiwumDump($paginator, $bramaRepo, $request->query->getInt('page', 1), 10);
+			$zrzuty = $logic->logic();
+
+			return $this->render('PjplDevBundle:Dev:przeglad-archiwum-variables.html.twig',['zrzuty' => $zrzuty]);
 		}
 }
