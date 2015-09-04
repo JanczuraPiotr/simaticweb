@@ -27,28 +27,28 @@
 						<td> {{ zrzut.id }} </td>
 						<td> {{ zrzut.timestamp|slice(0,-3)|date("Y-m-d H:i:s")}} <br> {{ zrzut.timestamp|slice(10,3) }} [ms] </td>
 						<td>
-							{{ ( zrzut.variablesAccess.input0 ? 'on' : 'off' ) }}
+							{{ ( zrzut.variablesAccess.input0 == true ? 'on' : 'off' ) }}
 						</td>
 						<td>
-							{{ ( zrzut.variablesAccess.input1 ? 'on' : 'off' ) }}
+							{{ ( zrzut.variablesAccess.input1 == true ? 'on' : 'off' ) }}
 						</td>
 						<td>
-							{{ ( zrzut.variablesAccess.input2 ? 'on' : 'off' ) }}
+							{{ ( zrzut.variablesAccess.input2 == true ? 'on' : 'off' ) }}
 						</td>
 						<td>
-							{{ ( zrzut.variablesAccess.input3 ? 'on' : 'off' ) }}
+							{{ ( zrzut.variablesAccess.input3 == true ? 'on' : 'off' ) }}
 						</td>
 						<td>
-							{{ ( zrzut.variablesAccess.input4 ? 'on' : 'off' ) }}
+							{{ ( zrzut.variablesAccess.input4 == true ? 'on' : 'off' ) }}
 						</td>
 						<td>
-							{{ ( zrzut.variablesAccess.input5 ? 'on' : 'off' ) }}
+							{{ ( zrzut.variablesAccess.input5 == true ? 'on' : 'off' ) }}
 						</td>
 						<td>
-							{{ ( zrzut.variablesAccess.input6 ? 'on' : 'off' ) }}
+							{{ ( zrzut.variablesAccess.input6 == true ? 'on' : 'off' ) }}
 						</td>
 						<td>
-							{{ ( zrzut.variablesAccess.input7 ? 'on' : 'off' ) }}
+							{{ ( zrzut.variablesAccess.input7 == true ? 'on' : 'off' ) }}
 						</td>
 					</tr>
 

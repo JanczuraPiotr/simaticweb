@@ -165,9 +165,9 @@ class Brama
 		 */
 		public function getVariablesAccess(){
 			if( ! isset($this->variablesAccess)){
-				$this->variableAccess = new BramaVariables($this);
+				$this->variablesAccess = new BramaVariables($this);
 			}
-			return $this->variableAccess;
+			return $this->variablesAccess;
 		}
 
 		public function getStrHexDb(){
