@@ -1,16 +1,16 @@
 <?php
 namespace Pjpl\SimaticServerBundle\Utils;
-use Pjpl\SimaticServerBundle\Entity\Brama;
+use Pjpl\SimaticServerBundle\Entity\Process1;
 
 /**
  * Dostęp do zmiennych bramy na podstawie zrzutu pamięci sterowanika
  *
  * @author Piotr Janczura <piotr@janczura.pl>
  */
-class BramaVariables {
+class Process1Variables {
 
-	public function __construct(Brama $brama) {
-		$this->brama = $brama;
+	public function __construct(Process1 $process1) {
+		$this->process1 = $process1;
 	}
 	public function getAll(){
 		return [
@@ -25,32 +25,32 @@ class BramaVariables {
 		];
 	}
 	public function getInput0(){
-		return S7::getBitAt($this->brama->getPe(), 0, 0);
+		return S7::getBitAt($this->process1->getI(), 0, 0);
 	}
 	public function getInput1(){
-		return S7::getBitAt($this->brama->getPe(), 0, 1);
+		return S7::getBitAt($this->process1->getI(), 0, 1);
 	}
 	public function getInput2(){
-		return S7::getBitAt($this->brama->getPe(), 0, 2);
+		return S7::getBitAt($this->process1->getI(), 0, 2);
 	}
 	public function getInput3(){
-		return S7::getBitAt($this->brama->getPe(), 0, 3);
+		return S7::getBitAt($this->process1->getI(), 0, 3);
 	}
 	public function getInput4(){
-		return S7::getBitAt($this->brama->getPe(), 0, 4);
+		return S7::getBitAt($this->process1->getI(), 0, 4);
 	}
 	public function getInput5(){
-		return S7::getBitAt($this->brama->getPe(), 0, 5);
+		return S7::getBitAt($this->process1->getI(), 0, 5);
 	}
 	public function getInput6(){
-		return S7::getBitAt($this->brama->getPe(), 0, 6);
+		return S7::getBitAt($this->process1->getI(), 0, 6);
 	}
 	public function getInput7(){
-		return S7::getBitAt($this->brama->getPe(), 0, 7);
+		return S7::getBitAt($this->process1->getI(), 0, 7);
 	}
 
 	/**
-	 * @var Brama
+	 * @var Process1
 	 */
-	private $brama;
+	private $process1;
 }

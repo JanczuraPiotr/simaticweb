@@ -27,9 +27,9 @@ class DevController extends Controller
 		public function przegladArchiwumDumpAction(Request $request){
 			$paginator = $this->get('knp_paginator');
 			$em = $this->getDoctrine()->getManager();
-			$bramaRepo = $em->getRepository("PjplSimaticServerBundle:Brama");
+			$process1Repo = $em->getRepository("PjplSimaticServerBundle:Process1");
 
-			$logic = new ShowArchiwumDump($paginator, $bramaRepo, $request->query->getInt('page', 1), 10);
+			$logic = new ShowArchiwumDump($paginator, $process1Repo, $request->query->getInt('page', 1), 10);
 			$zrzuty = $logic->logic();
 
 			return $this->render('PjplDevBundle:Dev:przeglad-archiwum-dump.html.twig',['zrzuty' => $zrzuty]);
@@ -40,9 +40,9 @@ class DevController extends Controller
 		public function przegladArchiwumVariablesAction(Request $request){
 			$paginator = $this->get('knp_paginator');
 			$em = $this->getDoctrine()->getManager();
-			$bramaRepo = $em->getRepository('PjplSimaticServerBundle:Brama');
+			$process1Repo = $em->getRepository('PjplSimaticServerBundle:Process1');
 
-			$logic = new ShowArchiwumDump($paginator, $bramaRepo, $request->query->getInt('page', 1), 10);
+			$logic = new ShowArchiwumDump($paginator, $process1Repo, $request->query->getInt('page', 1), 10);
 			$zrzuty = $logic->logic();
 
 			return $this->render('PjplDevBundle:Dev:przeglad-archiwum-variables.html.twig',['zrzuty' => $zrzuty]);

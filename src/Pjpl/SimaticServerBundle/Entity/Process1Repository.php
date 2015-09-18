@@ -1,17 +1,15 @@
 <?php
 /**
- * Description of BramaRepository
- *
- * @author piotr
+ * Description of Process1Repository
  */
 
 namespace Pjpl\SimaticServerBundle\Entity;
 use Doctrine\ORM\EntityRepository;
 
-class BramaRepository extends EntityRepository{
+class Process1Repository extends EntityRepository{
 
 	public function queryForPaginator(){
-		$dql = "SELECT b FROM PjplSimaticServerBundle:Brama b";
+		$dql = "SELECT p FROM PjplSimaticServerBundle:Process1 p";
 		return $this->getEntityManager()->createQuery($dql);
 	}
 }

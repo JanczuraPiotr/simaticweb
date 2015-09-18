@@ -2,7 +2,7 @@
 namespace Pjpl\SimaticServerBundle\Logic;
 
 use Knp\Component\Pager\Paginator;
-use Pjpl\SimaticServerBundle\Entity\BramaRepository;
+use Pjpl\SimaticServerBundle\Entity\Process1Repository;
 
 /**
  *
@@ -12,20 +12,20 @@ class ShowArchiwumDump {
 
 	/**
 	 * @param Paginator $paginator
-	 * @param BramaRepository $bramaRepo
+	 * @param BramaRepository $process1Repo
 	 * @param int $pageNr
 	 * @param int $itemsPerPage
 	 */
-	public function __construct(Paginator $paginator, BramaRepository $bramaRepo, $pageNr, $itemsPerPage){
+	public function __construct(Paginator $paginator, Process1Repository $process1Repo, $pageNr, $itemsPerPage){
 		$this->paginator = $paginator;
-		$this->bramaRepo = $bramaRepo;
+		$this->process1Repo = $process1Repo;
 		$this->pageNr = $pageNr;
 		$this->itemsPerPage = $itemsPerPage;
 	}
 
 	public function logic(){
 		$this->result = $this->paginator->paginate(
-				$this->bramaRepo->queryForPaginator(),
+				$this->process1Repo->queryForPaginator(),
 				$this->pageNr,
 				$this->itemsPerPage
 		);
@@ -37,9 +37,9 @@ class ShowArchiwumDump {
 	 */
 	private $paginator;
 	/**
-	 * @var BramaRepository
+	 * @var Process1Repository
 	 */
-	private $bramaRepo;
+	private $process1Repo;
 	/**
 	 * numer strony
 	 * @var int
