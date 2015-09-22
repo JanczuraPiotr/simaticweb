@@ -1,6 +1,6 @@
 <?php
 
-namespace Pjpl\SimaticServerBundle\Utils;
+namespace Pjpl\S7;
 
 
 class S7 {
@@ -11,7 +11,15 @@ class S7 {
     const S7AreaDB = 0x84;
     const S7AreaCT = 0x1C;
     const S7AreaTM = 0x1D;
-    // Connection types
+
+		const I = 0x81;
+    const Q = 0x82;
+    const F = 0x83;
+    const D = 0x84;
+    const C = 0x1C;
+    const T = 0x1D;
+
+		// Connection types
     const PG = 0x01;
     const OP = 0x02;
     const S7_BASIC = 0x03;

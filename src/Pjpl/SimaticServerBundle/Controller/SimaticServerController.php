@@ -18,7 +18,7 @@ class SimaticServerController extends Controller
 	public function indexAction()
 	{
 		$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
-		$socket_connect = socket_connect($socket, "192.168.1.104", 9999);
+		$socket_connect = socket_connect($socket, "192.168.1.103", 9000);
 
 		$code = 0x1000;
 		echo "code   = " . $code ." jako hex = ". sprintf("%02X", $code)."<br>";
