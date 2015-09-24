@@ -1,5 +1,6 @@
 <?php
 namespace Pjpl\SimaticServerBundle\Utils;
+use Pjpl\S7\S7;
 use Pjpl\SimaticServerBundle\Entity\Process1;
 
 /**

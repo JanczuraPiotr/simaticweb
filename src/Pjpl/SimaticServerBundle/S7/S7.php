@@ -5,19 +5,19 @@ namespace Pjpl\S7;
 
 class S7 {
     // S7 ID Area (Area that we want to read/write)
-    const S7AreaPE = 0x81;
-    const S7AreaPA = 0x82;
-    const S7AreaMK = 0x83;
-    const S7AreaDB = 0x84;
-    const S7AreaCT = 0x1C;
-    const S7AreaTM = 0x1D;
+    const S7AreaPE = 0x81; // I, E - wejście
+    const S7AreaPA = 0x82; // Q, A - wyjście
+    const S7AreaMK = 0x83; // F, M - flaga / marker
+    const S7AreaDB = 0x84; // D, D - dane
+    const S7AreaCT = 0x1C; // C, Z - licznik
+    const S7AreaTM = 0x1D; // T, T - timer
 
-		const I = 0x81;
-    const Q = 0x82;
-    const F = 0x83;
-    const D = 0x84;
-    const C = 0x1C;
-    const T = 0x1D;
+		const I = 0x81; // I, E - wejście
+    const Q = 0x82; // Q, A - wyjście
+    const F = 0x83; // F, M - flaga / marker
+    const D = 0x84; // D, D - dane
+    const C = 0x1C; // C, Z - licznik
+    const T = 0x1D; // T, T - timer
 
 		// Connection types
     const PG = 0x01;
@@ -53,6 +53,7 @@ class S7 {
     // Type Var
     const S7TypeBool = 1;
     const S7TypeInt = 1;
+		private static $maskByte = [ 0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80];
 
 		/**
 		 * @param array $buffer
@@ -60,39 +61,91 @@ class S7 {
 		 * @param int $bit
 		 * @return boolean
 		 */
-    public static function getBitAt(array $buffer, $pos, $bit)
-    {
+    public static function getBitAt(array $buffer, $pos, $bit) {
 			$value = $buffer[$pos] & 0x0FF;
-			$mask = [ 0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80];
 			if ( $bit < 0 ){
 				$bit = 0;
 			}
 			if ($bit > 7 ) {
 				$bit = 7;
 			}
-			return (boolean)( ( $value & $mask[$bit] ) != 0 );
+			return (boolean)( ( $value & static::$maskByte[$bit] ) != 0 );
+    }
+    /**
+     * Returns a 16 bit signed value : from -32768 to 32767
+     * @param Buffer
+     * @param Pos start position
+     * @return
+     */
+    public static function getIntAt(array $buffer, $pos){
+			$hi = ($buffer[$pos] & 0x00FF);
+			$lo = ($buffer[$pos+1] & 0x00FF);
+			return ( $hi << 8 ) + $lo;
+    }
+		/**
+		 * Returns a 32 bit signed value : from 0 to 4294967295 (2^32-1)
+		 * @return int
+		 */
+    public static function getDIntAt(array $buffer, $pos){
+			$result;
+			$result =  $buffer[$pos];
+			$result <<= 8;
+			$result += ($buffer[$pos+1] & 0x0FF);
+			$result <<= 8;
+			$result += ($buffer[$pos+2] & 0x0FF);
+			$result <<= 8;
+			$result += ($buffer[$pos+3] & 0x0FF);
+			return $result;
+    }
+		/**
+		 * Returns a 32 bit floating point
+		 * @return decimal
+		 */
+    public static function getRealAt(array $buffer, $pos){
+			$intFloat = $this->getDIntAt($buffer, $pos);
+			return floatval($intFloat);
     }
 
-//    /**
-//     * Returns a 16 bit unsigned value : from 0 to 65535 (2^16-1)
-//     * @param Buffer
-//     * @param Pos start position
-//     * @return
-//     */
-//    public static function getWordAt(array $buffer, $pos)
-//    {
-//			$hi = ($buffer[$pos] & 0x00FF);
-//			$lo = ($buffer[$pos+1] & 0x00FF);
-//			return ( $hi << 8 ) + $lo;
-//    }
+    public static function SetBitAt(array $buffer, $pos, $bit, $value){
 
-//    // Returns a 16 bit signed value : from -32768 to 32767
-//    public static function GetShortAt(array $buffer, $pos)
-//    {
-//        $hi = ($buffer[$pos]);
-//        $lo = ($buffer[$pos+1] & 0x00FF);
-//        return ( ( $hi << 8 ) + $lo );
-//    }
+        if ($bit<0) $bit=0;
+        if ($bit>7) $bit=7;
+
+        if ($value){
+					$buffer[$pos]= ($buffer[$pos] | static::$mask[$bit]);
+				}else{
+					$buffer[$pos]= ($buffer[$pos] & ~ static::$mask[$bit]);
+				}
+    }
+    public static function SetIntAt(array $buffer, $pos, $value){
+        $buffer[$pos]   = ($value >> 8);
+        $buffer[$pos+1] = ($value & 0x00FF);
+    }
+    public static function SetDIntAt(array $buffer, $pos, $value){
+        $buffer[$pos+3] = ( $value &0xFF);
+        $buffer[$pos+2] = (($value >> 8) &0xFF);
+        $buffer[$pos+1] = (($value >> 16) &0xFF);
+        $buffer[$pos]   = (($value >> 24) &0xFF);
+    }
+    public static function SetFloatAt(array $buffer, $pos, $value){
+        $DInt = Float.floatToIntBits(Value);
+        SetDIntAt(Buffer, Pos, DInt);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //    // Returns a 32 bit unsigned value : from 0 to 4294967295 (2^32-1)
 //		/**
@@ -111,32 +164,7 @@ class S7 {
 //			return $result;
 //    }
 
-//    // Returns a 32 bit signed value : from 0 to 4294967295 (2^32-1)
-//		/**
-//		 * @return int
-//		 */
-//    public static function getDIntAt(array $buffer, $pos)
-//    {
-//			$result;
-//			$result =  $buffer[$pos];
-//			$result <<= 8;
-//			$result += ($buffer[$pos+1] & 0x0FF);
-//			$result <<= 8;
-//			$result += ($buffer[$pos+2] & 0x0FF);
-//			$result <<= 8;
-//			$result += ($buffer[$pos+3] & 0x0FF);
-//			return $result;
-//    }
 
-//    // Returns a 32 bit floating point
-//		/**
-//		 * @return decimal
-//		 */
-//    public static function getFloatAt(array $buffer, $pos)
-//    {
-//			$intFloat = $this->getDIntAt($buffer, $pos);
-//			return floatval($intFloat);
-//    }
 
 //     //Returns an ASCII string
 //    public static function getStringAt(array $buffer, $pos, $maxLen)
@@ -189,32 +217,11 @@ class S7 {
 //        return S7Date.getTime();
 //    }
 
-//    public static void SetBitAt(byte[] Buffer, int Pos, int Bit, boolean Value)
-//    {
-//        byte[] Mask = {
-//            (byte)0x01,(byte)0x02,(byte)0x04,(byte)0x08,
-//            (byte)0x10,(byte)0x20,(byte)0x40,(byte)0x80
-//        };
-//        if (Bit<0) Bit=0;
-//        if (Bit>7) Bit=7;
-//
-//        if (Value)
-//            Buffer[Pos]= (byte) (Buffer[Pos] | Mask[Bit]);
-//        else
-//            Buffer[Pos]= (byte) (Buffer[Pos] & ~Mask[Bit]);
-//    }
-
 //    public static void SetWordAt(byte[] Buffer, int Pos, int Value)
 //    {
 //        int Word = Value & 0x0FFFF;
 //        Buffer[Pos]   = (byte) (Word >> 8);
 //        Buffer[Pos+1] = (byte) (Word & 0x00FF);
-//    }
-
-//    public static void SetShortAt(byte[] Buffer, int Pos, int Value)
-//    {
-//        Buffer[Pos]   = (byte) (Value >> 8);
-//        Buffer[Pos+1] = (byte) (Value & 0x00FF);
 //    }
 
 //    public static void SetDWordAt(byte[] Buffer, int Pos, long Value)
@@ -226,19 +233,8 @@ class S7 {
 //        Buffer[Pos]   = (byte) ((DWord >> 24) &0xFF);
 //    }
 
-//    public static void SetDIntAt(byte[] Buffer, int Pos, int Value)
-//    {
-//        Buffer[Pos+3] = (byte) (Value &0xFF);
-//        Buffer[Pos+2] = (byte) ((Value >> 8) &0xFF);
-//        Buffer[Pos+1] = (byte) ((Value >> 16) &0xFF);
-//        Buffer[Pos]   = (byte) ((Value >> 24) &0xFF);
-//    }
 
-//    public static void SetFloatAt(byte[] Buffer, int Pos, float Value)
-//    {
-//        int DInt = Float.floatToIntBits(Value);
-//        SetDIntAt(Buffer, Pos, DInt);
-//    }
+
 
 //    public static void SetDateAt(byte[] Buffer, int Pos, Date DateTime)
 //    {
