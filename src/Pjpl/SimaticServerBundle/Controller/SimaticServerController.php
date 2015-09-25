@@ -84,6 +84,16 @@ class SimaticServerController extends Controller
 //		var_dump($unpack);
 
 		socket_write($socket, $pack);
+		$response = socket_read($socket, 100);
+		var_dump($response);
+
+		for( $i = 0 ; $i < strlen($response); $i++){
+			echo sprintf("%02X", ord(substr($response,$i, 1)))."<br>";
+		}
+
+		$responseShort1 = BigEndian::shortFromPack($response);
+//		$responseShort2 = BigEndian::shortFromPack($response);
+		echo sprintf("responseInt = 0x%04X", $responseShort1)."<br>";
 
 
 		$arr = [1,2,3,4];

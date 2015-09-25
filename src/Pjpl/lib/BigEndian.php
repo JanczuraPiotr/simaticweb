@@ -53,7 +53,9 @@ class BigEndian {
 	}
 	public static function shortFromPack($pack){
 		// @todo obsługa błędów w BigEndian
-		return unpack("nshort",$pack)['short'];
+		$ret = ( ord(substr($pack,0,1)) & 0x00000000FF) << 8;
+		$ret += ( ord(substr($pack,1,1)) & 0x00000000FF);
+		return $ret;
 	}
 	public static function intToArray($int, array &$buff = null, $start = 0){
 		// @todo obsługa błędów w BigEndian
