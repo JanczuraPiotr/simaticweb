@@ -22,11 +22,11 @@ class BigEndian {
 	}
 	public static function byteFromArray(array $buff, $start){
 		// @todo obsługa błędów w BigEndian
-		return $buff[$start];
+		return ( $buff[$start] & 0x000000FF );
 	}
 	public static function byteFromPack($pack){
 		// @todo obsługa błędów w BigEndian
-		return unpack("cbyte", $pack)['byte'];
+		return ( unpack("cbyte", $pack)['byte'] & 0x000000FF );
 	}
 	public static function shortToArray($short, array &$buff = null, $start = 0){
 		// @todo obsługa błędów w BigEndian
@@ -55,7 +55,7 @@ class BigEndian {
 		// @todo obsługa błędów w BigEndian
 		$ret = ( ord(substr($pack,0,1)) & 0x00000000FF) << 8;
 		$ret += ( ord(substr($pack,1,1)) & 0x00000000FF);
-		return $ret;
+		return $ret & 0x0000FFFF;
 	}
 	public static function intToArray($int, array &$buff = null, $start = 0){
 		// @todo obsługa błędów w BigEndian

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="{{app.request.locale}}">
+	<head>
+		<meta charset="UTF-8" />
+		<title>{% block title %} Simatic Web {% endblock %}</title>
+		
+		{% block css %}
+			<link href="{{ asset('bundles/pjpldev/css/main.css') }}" type="text/css" rel="stylesheet"/>
+			<link href="{{ asset('bundles/pjpldev/css/menu.css') }}" type="text/css" rel="stylesheet"/>
+		{% endblock %}
+
+	</head>
+	<body>
+		<div class="nav-top">
+			{% block menu %}
+					{{ knp_menu_render('PjplScadaBundle:Builder:ScadaMenu') }}
+			{% endblock %}
+		</div>
+		{% block body %}{% endblock %}
+		{% block templates %}{% endblock %}
+		{% block javascripts %}{% endblock %}
+
+	</body>
+</html>

@@ -1,9 +1,13 @@
+pjpl_scada_bundle:
+    resource: "@PjplScadaBundle/Resources/config/routing.yml"
+    prefix:   /
+
 pjpl_simatic_server:
     resource: "@PjplSimaticServerBundle/Resources/config/routing.yml"
     prefix:   /
 
 pjpl_dev_bundle:
     resource: "@PjplDevBundle/Resources/config/routing.yml"
-    
+
 pjpl_simatic_server_bundle:
     resource: "@PjplSimaticServerBundle/Resources/config/routing.yml"

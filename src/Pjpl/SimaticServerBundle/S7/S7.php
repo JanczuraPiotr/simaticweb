@@ -1,6 +1,6 @@
 <?php
 
-namespace Pjpl\S7;
+namespace Pjpl\SimaticServerBundle\S7;
 
 
 class S7 {

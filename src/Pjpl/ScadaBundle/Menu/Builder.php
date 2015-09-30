@@ -1,20 +1,14 @@
 <?php
-namespace Pjpl\DevBundle\Menu;
+namespace Pjpl\ScadaBundle\Menu;
 use Knp\Menu\FactoryInterface;
 /**
  *
  * @author Piotr Janczura <piotr@janczura.pl>
  */
 class Builder {
-	public function DevMenu(FactoryInterface $factory , array $options){
+	public function ScadaMenu(FactoryInterface $factory , array $options){
 		$menu = $factory->createItem('root');
 		$menu->setChildrenAttribute('class', 'menu-main');
-
-
-		$menuScada = $menu->addChild("SCADA",[
-				'route' => 'pjpl_scada'
-		]);
-
 
 		$menuSimaticWeb = $menu->addChild('SimaticWeb');
 		$menuSimaticWeb->addChild("Przegląd archiwum zrzutów", [
@@ -28,7 +22,6 @@ class Builder {
 		$menuSimaticServer->addChild('test servera',[
 				'route' => 'simatic_server'
 		]);
-
 
 		return $menu;
 

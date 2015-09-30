@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 use Pjpl\SimaticServerBundle\Logic\ShowArchiwumDump;
-use Pjpl\SimaticServerBundle\Logic\ShowArchiwumVariables;
 
 /**
  * @Route("/dev", name="dev")
