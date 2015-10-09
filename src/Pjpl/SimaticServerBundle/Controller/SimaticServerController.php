@@ -23,12 +23,12 @@ class SimaticServerController extends Controller
 	public function indexAction(){
 
 		$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
-		$socket_connect = socket_connect($socket, "192.168.1.103", 9000);
+		$socket_connect = socket_connect($socket, "192.168.1.101", 9000);
 
 		$commandCode = CommandCode::SET_Q_BYTE_short; //
 		$processId = ConstProcess::PROCESS1_ID_byte; // Process1
 		$addr = 0;
-		$val = 1;
+		$val = 13;
 
 		$packCommandCode = BigEndian::shortToPack($commandCode);
 		$packProcessId = BigEndian::byteToPack($processId);
@@ -121,23 +121,23 @@ class SimaticServerController extends Controller
 
 		return $this->render('PjplSimaticServerBundle:SimaticServer:index.html.twig');
 	}
-  public function getRealAt(array $buffer, $pos){
-		$intFloat = $this->getDIntAt($buffer, $pos);
-		return floatval($intFloat);
-	}
-
-	public function setRealAt(array $buffer, $pos, /*float*/$value){
-
-	}
-	public function getDIntAt(array $buffer, $pos){
-		$result;
-		$result =  $buffer[$pos];
-		$result <<= 8;
-		$result += ($buffer[$pos+1] & 0x0FF);
-		$result <<= 8;
-		$result += ($buffer[$pos+2] & 0x0FF);
-		$result <<= 8;
-		$result += ($buffer[$pos+3] & 0x0FF);
-		return $result;
-	}
+//  public function getRealAt(array $buffer, $pos){
+//		$intFloat = $this->getDIntAt($buffer, $pos);
+//		return floatval($intFloat);
+//	}
+//
+//	public function setRealAt(array $buffer, $pos, /*float*/$value){
+//
+//	}
+//	public function getDIntAt(array $buffer, $pos){
+//		$result;
+//		$result =  $buffer[$pos];
+//		$result <<= 8;
+//		$result += ($buffer[$pos+1] & 0x0FF);
+//		$result <<= 8;
+//		$result += ($buffer[$pos+2] & 0x0FF);
+//		$result <<= 8;
+//		$result += ($buffer[$pos+3] & 0x0FF);
+//		return $result;
+//	}
 }

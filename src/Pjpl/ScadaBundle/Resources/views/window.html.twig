@@ -1,15 +1,18 @@
 <!doctype html>
 <html lang="{{app.request.locale}}">
+
 	<head>
-		<meta charset="UTF-8" />
 		<title>{% block title %} Simatic Web {% endblock %}</title>
-		
+		<meta charset="UTF-8" />
+
 		{% block css %}
-			<link href="{{ asset('bundles/pjpldev/css/main.css') }}" type="text/css" rel="stylesheet"/>
-			<link href="{{ asset('bundles/pjpldev/css/menu.css') }}" type="text/css" rel="stylesheet"/>
+			<link href="{{ asset('bundles/pjplscada/css/pjpl.css') }}" type="text/css" rel="stylesheet"/>
+			<link href="{{ asset('bundles/pjplscada/css/scada.css') }}" type="text/css" rel="stylesheet"/>
+			<link href="{{ asset('bundles/pjplscada/css/menu.css') }}" type="text/css" rel="stylesheet"/>
 		{% endblock %}
 
 	</head>
+
 	<body>
 		<div class="nav-top">
 			{% block menu %}
@@ -21,4 +24,5 @@
 		{% block javascripts %}{% endblock %}
 
 	</body>
+
 </html>

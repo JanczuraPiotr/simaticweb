@@ -2,5 +2,42 @@
 
 
 {% block body %}
-	ScadaController::indexAction()
+	<div id="pomiary">
+		<div id="inputs">
+			<table>
+				<tbody>
+					<tr><td>wejście 0</td><td><input type="checkbox" name="I_0" disabled="disabled"></td></tr>
+					<tr><td>wejście 1</td><td><input type="checkbox" name="I_1" disabled="disabled"></td></tr>
+					<tr><td>wejście 2</td><td><input type="checkbox" name="I_2" disabled="disabled"></td></tr>
+					<tr><td>wejście 3</td><td><input type="checkbox" name="I_3" disabled="disabled"></td></tr>
+					<tr><td>wejście 4</td><td><input type="checkbox" name="I_4" disabled="disabled"></td></tr>
+					<tr><td>wejście 5</td><td><input type="checkbox" name="I_5" disabled="disabled"></td></tr>
+					<tr><td>wejście 6</td><td><input type="checkbox" name="I_6" disabled="disabled"></td></tr>
+					<tr><td>wejście 7</td><td><input type="checkbox" name="I_7" disabled="disabled"></td></tr>
+				</tbody>
+			</table>
+		</div>
+		<div id="variables">
+			<table>
+				<tbody>
+					<tr><td>zmienna Byte </td><td><input type="text" name="D_Byte" class="liczba" size="8"/><td><td><button id="D-Byte-set">Ustaw</button></td></tr>
+					<tr><td>zmienna Int  </td><td><input type="text" name="D_Int"  class="liczba" size="8"/><td><td><button id="D-Int-set">Ustaw</button></td></tr>
+					<tr><td>zmienna DInt </td><td><input type="text" name="D_DInt" class="liczba" size="8"/><td><td><button id="D-DInt-set">Ustaw</button></td></tr>
+					<tr><td>zmienna Real </td><td><input type="text" name="D_Real" class="liczba" size="8"/><td><td><button id="D-Real-set">Ustaw</button></td></tr>
+				</tbody>
+			</table>
+		</div>
+		<div id="outputs">
+			<table>
+				<tbody>
+					<tr><td>wyjście 0</td><td><input type="checkbox" name="Q_0" ></td></tr>
+					<tr><td>wyjście 1</td><td><input type="checkbox" name="Q_1" ></td></tr>
+					<tr><td>wyjście 2</td><td><input type="checkbox" name="Q_2" ></td></tr>
+					<tr><td>wyjście 3</td><td><input type="checkbox" name="Q_3" ></td></tr>
+					<tr><td>wyjście 4</td><td><input type="checkbox" name="Q_4" ></td></tr>
+					<tr><td>wyjście 5</td><td><input type="checkbox" name="Q_5" ></td></tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
 {% endblock %}
