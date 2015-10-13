@@ -44,13 +44,21 @@ abstract class Command {
 	public function action(){
 		// @todo obsłużyć błędy
 		$this->buildCommandStream();
-		socket_write($this->socket, $this->getCommandStream());
+		socket_write($this->socket, $this->getCommandStream(),10);
 		$this->responseStream = socket_read($this->socket, 10);
 		$this->responseBuilder = new CommandResponseBuilder($this->socket, $this->responseStream);
 		$this->responseObject = $this->responseBuilder->build();
 		return $this->responseObject;
 	}
 
+	/**
+	 * Z atrybutów obiektu pochodnego i $this->processId oraz $this->getCommandCode() buduje responseStream
+	 * 		$this->commandStream
+	 *			= BigEndian::shortToPack($this->getCommandCode())
+	 *			. BigEndian::byteToPack($this->getProcessId())
+	 *			. BigEndian::shortToPack($this->getJakasWartosc())
+	 *			. BigEndian::byteToPack($this->getJakasKolejnaWartosc());
+	 */
 	protected abstract function buildCommandStream();
 
 	//------------------------------------------------------------------------------

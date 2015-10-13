@@ -1,11 +1,7 @@
+# ScadaBundle
 
-pjpl_scada:
+scada:
   path: /
-  defaults:
-    _controller: PjplScadaBundle:Scada:index
-
-pjpl_scada_scada:
-  path: /scada
   defaults:
     _controller: PjplScadaBundle:Scada:index
 

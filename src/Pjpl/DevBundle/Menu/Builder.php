@@ -10,25 +10,30 @@ class Builder {
 		$menu = $factory->createItem('root');
 		$menu->setChildrenAttribute('class', 'menu-main');
 
+		$menuCommands = $menu->addChild('Commands');
+		$menuCommands->addChild('I_GET_BYTE', ['route' => 'dev_command_I_GET_BYTE']);
+		$menuCommands->addChild('Q_GET_BYTE', ['route' => 'dev_command_Q_GET_BYTE']);
+		$menuCommands->addChild('Q_SET_BYTE', ['route' => 'dev_command_Q_SET_BYTE']);
+		$menuCommands->addChild('D_GET_BYTE', ['route' => 'dev_command_D_GET_BYTE']);
+		$menuCommands->addChild('D_SET_BYTE', ['route' => 'dev_command_D_SET_BYTE']);
+		$menuCommands->addChild('D_GET_INT',  ['route' => 'dev_command_D_GET_INT']);
+		$menuCommands->addChild('D_SET_INT',  ['route' => 'dev_command_D_SET_INT']);
+		$menuCommands->addChild('D_GET_DINT', ['route' => 'dev_command_D_GET_DINT']);
+		$menuCommands->addChild('D_SET_DINT', ['route' => 'dev_command_D_SET_DINT']);
+		$menuCommands->addChild('D_GET_REAL', ['route' => 'dev_command_D_GET_REAL']);
+		$menuCommands->addChild('D_SET_REAL', ['route' => 'dev_command_D_SET_REAL']);
 
-		$menuScada = $menu->addChild("SCADA",[
-				'route' => 'pjpl_scada'
+		$menuAnaliza = $menu->addChild("Analiza",[
+				'route' => 'analiza'
 		]);
-
-
-		$menuSimaticWeb = $menu->addChild('SimaticWeb');
-		$menuSimaticWeb->addChild("Przegląd archiwum zrzutów", [
-				'route' => 'dev_przeglad_archiwum_dump'
-		] );
-		$menuSimaticWeb->addChild("Przegląd archiwum zmiennych",[
-				'route' => 'dev_przeglad_archiwum_variables'
+		$menuScada = $menu->addChild("SCADA",[
+				'route' => 'scada'
 		]);
 
 		$menuSimaticServer = $menu->addChild('SimaticServer');
 		$menuSimaticServer->addChild('test servera',[
-				'route' => 'simatic_server'
+				'route' => 'server'
 		]);
-
 
 		return $menu;
 

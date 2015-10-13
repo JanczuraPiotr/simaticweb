@@ -1,3 +1,6 @@
-pjpl_simatic_server_controller:
-  resource: "@PjplSimaticServerBundle/Controller/SimaticServerController.php"
-  type : annotation
+#pjpl_simatic_server_bundle
+
+server:
+    path: /
+    defaults:
+      _controller : PjplSimaticServerBundle:SimaticServer:index

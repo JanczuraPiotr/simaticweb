@@ -1,0 +1,4 @@
+services:
+#    pjpl_analiza.example:
+#        class: Pjpl\AnalizaBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

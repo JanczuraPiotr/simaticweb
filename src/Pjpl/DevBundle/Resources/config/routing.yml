@@ -1,4 +1,51 @@
-pjpl_dev_dev_controller:
-  resource: "@PjplDevBundle/Controller/DevController.php"
-  type: annotation
+dev:
+  path:     /
+  defaults: { _controller: PjplDevBundle:Dev:index }
 
+dev_command:
+  path: /command/
+  defaults: { _controller: PjplDevBundle:Command:index }
+
+dev_command_I_GET_BYTE:
+  path: /command/i-get-byte
+  defaults: { _controller: PjplDevBundle:Command:iGetByte }
+
+dev_command_Q_GET_BYTE:
+  path: /command/q-get-byte
+  defaults: { _controller: PjplDevBundle:Command:qGetByte }
+
+dev_command_Q_SET_BYTE:
+  path: /command/q-set-byte
+  defaults: { _controller: PjplDevBundle:Command:qSetByte }
+
+dev_command_D_GET_BYTE:
+  path: /command/d-get-byte
+  defaults: { _controller: PjplDevBundle:Command:dGetByte }
+
+dev_command_D_SET_BYTE:
+  path: /command/d-set-byte
+  defaults: { _controller: PjplDevBundle:Command:dSetByte }
+
+dev_command_D_GET_INT :
+  path: /command/d-get-int
+  defaults: { _controller: PjplDevBundle:Command:dGetInt }
+
+dev_command_D_SET_INT :
+  path: /command/d-set-int
+  defaults: { _controller: PjplDevBundle:Command:dSetInt }
+
+dev_command_D_GET_DINT:
+  path: /command/d-get-dint
+  defaults: { _controller: PjplDevBundle:Command:dGetDInt }
+
+dev_command_D_SET_DINT:
+  path: /command/d-set-dint
+  defaults: { _controller: PjplDevBundle:Command:dSetDInt }
+
+dev_command_D_GET_REAL:
+  path: /command/d-get-real
+  defaults: { _controller: PjplDevBundle:Command:dGetReal }
+
+dev_command_D_SET_REAL:
+  path: /command/d-set-real
+  defaults: { _controller: PjplDevBundle:Command:dSetReal }

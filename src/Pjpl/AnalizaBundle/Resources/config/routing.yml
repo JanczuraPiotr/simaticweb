@@ -1,0 +1,11 @@
+analiza:
+  path:     /
+  defaults: { _controller: PjplAnalizaBundle:Analiza:index }
+
+analiza_archiwum_dump:
+  path: /archiwum-dump
+  defaults: { _controller: PjplAnalizaBundle:Analiza:przegladArchiwumDump}
+
+analiza_archiwum_variables:
+  path: /archiwum-variables
+  defaults: { _controller: PjplAnalizaBundle:Analiza:przegladArchiwumVariables}
