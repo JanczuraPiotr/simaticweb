@@ -15,19 +15,19 @@ class ResponseCode {
 	const RETURN_LREAL_short   = 0xC106;
 
 
-	/**
-	 * @prace prawdopodobnie poniższe stałe zostały zapisane na wyrost i nie będą używane
-	 */
-	const GET_I_BYTE_short  = 0xC001;
-	const GET_Q_BYTE_short  = 0xC002;
-	const SET_Q_BYTE_short  = 0xC003;
-	const GET_D_BYTE_short  = 0xC004;
-	const SET_D_BYTE_short  = 0xC005;
-	const GET_D_INT_short   = 0xC006;
-	const SET_D_INT_short   = 0xC007;
-	const GET_D_DINT_short  = 0xC008;
-	const SET_D_DINT_short  = 0xC009;
-	const GET_D_REAL_short  = 0xC00A;
-	const SET_D_REAL_short  = 0xC00B;
+//	/**
+//	 * @prace prawdopodobnie poniższe stałe zostały zapisane na wyrost i nie będą używane
+//	 */
+//	const I_GET_BYTE_short  = 0xC001;
+//	const Q_GET_BYTE_short  = 0xC002;
+//	const Q_SET_BYTE_short  = 0xC003;
+//	const D_GET_BYTE_short  = 0xC004;
+//	const D_SET_BYTE_short  = 0xC005;
+//	const D_GET_INT_short   = 0xC006;
+//	const D_SET_INT_short   = 0xC007;
+//	const D_GET_DINT_short  = 0xC008;
+//	const D_SET_DINT_short  = 0xC009;
+//	const D_GET_REAL_short  = 0xC00A;
+//	const D_SET_REAL_short  = 0xC00B;
 
 }

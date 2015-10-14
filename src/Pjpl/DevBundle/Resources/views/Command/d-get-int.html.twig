@@ -2,4 +2,12 @@
 
 {% block body %}
 	CommandController::dGetIntAction()
+	<hr>
+	{% if response != null %}
+		wartość zmiennej : {{ response }}
+	{% endif %}
+	<hr>
+	{{ form_start(form) }}
+	{{ form_widget(form) }}
+	{{ form_end(form) }}
 {% endblock %}

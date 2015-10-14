@@ -42,7 +42,7 @@ class CommandResponseBuilder {
 						, $this->responseStream
 						, $this->processId
 						, $this->commandCode
-						, $responseCode
+						, $this->responseCode
 				);
 				break;
 			case ResponseCode::RETURN_GENERAL_short:

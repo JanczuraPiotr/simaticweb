@@ -12,7 +12,7 @@ class Q_SetByte extends Command{
 	 * @param byte processId identyfikator procesu dla którym ma być wykonana komenda
 	 * @param int $addr adres zmiennej wyjściowej
 	 * @param byte $val nowa wartość zmiennej wyjściowej
-	 * @param resource $socket gniazdo do SimaticServer
+	 * @param socket $socket gniazdo do SimaticServer
 	 */
 	public function __construct($processId, $addr, $val, $socket) {
 		parent::__construct($processId, $socket);

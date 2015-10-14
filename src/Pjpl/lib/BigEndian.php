@@ -42,6 +42,9 @@ class BigEndian {
 	}
 	public static function shortToPack($short){
 		// @todo obsługa błędów w BigEndian
+		$pack =  pack("n", $short);
+//		echo sprintf("1 bajt 0x%02X <br>", ord(substr($pack,0,1)));
+//		echo sprintf("0 bajt 0x%02X <br>", ord(substr($pack,1,1)));
 		return pack("n", $short);
 	}
 	public static function shortFromArray(array &$buff, $start){

@@ -3,6 +3,19 @@ namespace Pjpl\DevBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Pjpl\SimaticServerBundle\Command\I_GetByte;
+use Pjpl\SimaticServerBundle\Command\Q_GetByte;
+use Pjpl\SimaticServerBundle\Command\Q_SetByte;
+use Pjpl\SimaticServerBundle\Command\D_GetByte;
+use Pjpl\SimaticServerBundle\Command\D_SetByte;
+use Pjpl\SimaticServerBundle\Command\D_GetInt;
+use Pjpl\SimaticServerBundle\Command\D_SetInt;
+use Pjpl\SimaticServerBundle\Command\D_GetDInt;
+use Pjpl\SimaticServerBundle\Command\D_SetDInt;
+use Pjpl\SimaticServerBundle\Command\D_GetReal;
+use Pjpl\SimaticServerBundle\Command\D_SetReal;
+use Pjpl\SimaticServerBundle\S7\Common\ResponseCode;
+use Pjpl\SimaticServerBundle\S7\Common\ConstProcess;
+use Pjpl\SimaticServerBundle\S7\Common\VarCode;
 
 /**
  * @todo Description of CommandController
@@ -17,7 +30,6 @@ class CommandController extends Controller{
 
 
 	public function iGetByteAction(Request $request){
-		// @prace 00 uruchamianie akcji
 		$ip = $this->container->getParameter('simatic_server')['ip'];
 		$port = $this->container->getParameter('simatic_server')['port'];
 		$timeout = $this->container->getParameter('simatic_server')['timeout'];
@@ -30,20 +42,29 @@ class CommandController extends Controller{
 		$form->add('portGroupNr', 'integer',[
 				'label' => 'numer grupy portów'
 		]);
-		$form->add('processId','integer',[
-			'label' => 'identyfikator procesu'
-		]);
+//		$form->add('processId','integer',[
+//			'label' => 'identyfikator procesu'
+//		]);
 		$form->add('pobierz', 'submit');
 		$form = $form->getForm();
 
 		$form->handleRequest($request);
-
 		if( $form->isValid()){
-//			$processId = $form->get('processId')->getData();
-//			$portGroupNr = $form->get('portGroupNr')->getData();
-//			$command = new I_GetByte($processId, $portGroupNr, $socket);
-//			$resonseObject = $command->action();
-//			var_dump($resonseObject);
+			$processId = 1;//$form->get('processId')->getData();
+			$portGroupNr = $form->get('portGroupNr')->getData();
+			$command = new I_GetByte($processId, $portGroupNr, $socket);
+			$responseObject = $command->action();
+			switch($responseObject->getResponseCode()){
+				case ResponseCode::RETURN_BYTE_short:
+					$response = sprintf("0x%02X", $responseObject->getByte());
+					break;
+				case ResponseCode::OK_short:
+					break;
+				case ResponseCode::NO_short:
+					break;
+				default:
+
+			}
 		}else{
 
 		}
@@ -51,19 +72,190 @@ class CommandController extends Controller{
 		return $this->render('PjplDevBundle:Command:i-get-byte.html.twig', ['form' => $form->createView(), 'response' => $response]);
 	}
 	public function qGetByteAction(){
-		return $this->render('PjplDevBundle:Command:q-get-byte.html.twig');
+
+		$ip = $this->container->getParameter('simatic_server')['ip'];
+		$port = $this->container->getParameter('simatic_server')['port'];
+		$timeout = $this->container->getParameter('simatic_server')['timeout'];
+		$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
+		$socket_connect = socket_connect($socket, $ip , $port);
+
+		$processId = ConstProcess::PROCESS1_ID_byte;
+		$varId = VarCode::ZMIENNA_BYTE;
+		$command = new Q_GetByte($processId, $varId, $socket);
+		$responseObject = $command->action();
+
+		switch($responseObject->getResponseCode()){
+			case ResponseCode::RETURN_BYTE_short:
+				$response = $responseObject->getByte();
+				break;
+			case ResponseCode::OK_short:
+				break;
+			case ResponseCode::NO_short:
+				break;
+			default:
+		}
+
+		$response = sprintf("0x%02X",$response);
+		return $this->render('PjplDevBundle:Command:q-get-byte.html.twig',['response' => $response]);
 	}
-	public function qSetByteAction(){
-		return $this->render('PjplDevBundle:Command:q-set-byte.html.twig');
+	public function qSetByteAction(Request $request){
+
+		$response = null;
+		$portGroupNr;
+		$form = $this->createFormBuilder();
+		$form->add('portAddr','integer',[
+				'label' => 'adres portu'
+		]);
+		$form->add('portVal', 'integer',[
+				'label' => 'wartość portu'
+		]);
+		$form->add('ustaw', 'submit');
+		$form = $form->getForm();
+
+		$form->handleRequest($request);
+
+		if( $form->isValid()){
+			$ip = $this->container->getParameter('simatic_server')['ip'];
+			$port = $this->container->getParameter('simatic_server')['port'];
+			$timeout = $this->container->getParameter('simatic_server')['timeout'];
+			$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
+			$socket_connect = socket_connect($socket, $ip , $port);
+			$processId = ConstProcess::PROCESS1_ID_byte;
+
+			$portAddr = $form->get('portAddr')->getData();
+			$portVal = $form->get('portVal')->getData();
+			$command = new Q_SetByte($processId, $portAddr, $portVal, $socket);
+			$responseObject = $command->action();
+			switch($responseObject->getResponseCode()){
+				case ResponseCode::RETURN_BYTE_short:
+					$response = sprintf("0x%02X", $responseObject->getByte());
+					break;
+				case ResponseCode::OK_short:
+					break;
+				case ResponseCode::NO_short:
+					break;
+				default:
+
+			}
+		}else{
+
+		}
+
+		return $this->render('PjplDevBundle:Command:q-set-byte.html.twig', ['form' => $form->createView(), 'response' => $response]);
 	}
-	public function dGetByteAction(){
-		return $this->render('PjplDevBundle:Command:d-get-byte.html.twig');
+	public function dGetByteAction(Request $request){
+		$response = null;
+		$form = $this->createFormBuilder();
+		$form->add('varCode','integer',[
+				'label' => 'adres '
+		]);
+		$form->add('pobierz', 'submit');
+		$form = $form->getForm();
+
+		$form->handleRequest($request);
+
+		if( $form->isValid()){
+			$ip = $this->container->getParameter('simatic_server')['ip'];
+			$port = $this->container->getParameter('simatic_server')['port'];
+			$timeout = $this->container->getParameter('simatic_server')['timeout'];
+			$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
+			$socket_connect = socket_connect($socket, $ip , $port);
+			$processId = ConstProcess::PROCESS1_ID_byte;
+
+			$varCode = $form->get('varCode')->getData();
+			$command = new D_GetByte($processId, $varCode, $socket);
+			$responseObject = $command->action();
+			switch($responseObject->getResponseCode()){
+				case ResponseCode::RETURN_BYTE_short:
+					$response = sprintf("0x%02X", $responseObject->getByte());
+					break;
+				case ResponseCode::OK_short:
+					break;
+				case ResponseCode::NO_short:
+					break;
+				default:
+
+			}
+		}
+		return $this->render('PjplDevBundle:Command:d-get-byte.html.twig', ['form' => $form->createView(), 'response' => $response]);
 	}
-	public function dSetByteAction(){
-		return $this->render('PjplDevBundle:Command:d-set-byte.html.twig');
+	public function dSetByteAction(Request $request){
+		$response = null;
+		$form = $this->createFormBuilder();
+		$form->add('varCode','integer',[
+				'label' => 'adres '
+		]);
+		$form->add('varVal', 'integer',[
+				'label' => 'wartość'
+		]);
+		$form->add('zapisz', 'submit');
+		$form = $form->getForm();
+
+		$form->handleRequest($request);
+
+		if( $form->isValid()){
+
+			$ip = $this->container->getParameter('simatic_server')['ip'];
+			$port = $this->container->getParameter('simatic_server')['port'];
+			$timeout = $this->container->getParameter('simatic_server')['timeout'];
+			$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
+			$socket_connect = socket_connect($socket, $ip , $port);
+			$processId = ConstProcess::PROCESS1_ID_byte;
+
+			$varCode = $form->get('varCode')->getData();
+			$varVal = $form->get('varVal')->getData();
+			$command = new D_SetByte($processId, $varCode, $varVal, $socket);
+			$responseObject = $command->action();
+			switch($responseObject->getResponseCode()){
+				case ResponseCode::RETURN_BYTE_short:
+					$response = sprintf("0x%02X", $responseObject->getByte());
+					break;
+				case ResponseCode::OK_short:
+					break;
+				case ResponseCode::NO_short:
+					break;
+				default:
+
+			}
+		}
+		return $this->render('PjplDevBundle:Command:d-set-byte.html.twig', ['form' => $form->createView(), 'response' => $response]);
 	}
-	public function dGetIntAction(){
-		return $this->render('PjplDevBundle:Command:d-get-int.html.twig');
+	public function dGetIntAction(Request $request){
+		$response = null;
+		$form = $this->createFormBuilder();
+		$form->add('varCode','integer',[
+				'label' => 'kod zmiennej '
+		]);
+		$form->add('pobierz', 'submit');
+		$form = $form->getForm();
+
+		$form->handleRequest($request);
+
+		if( $form->isValid()){
+			$ip = $this->container->getParameter('simatic_server')['ip'];
+			$port = $this->container->getParameter('simatic_server')['port'];
+			$timeout = $this->container->getParameter('simatic_server')['timeout'];
+			$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
+			$socket_connect = socket_connect($socket, $ip , $port);
+			$processId = ConstProcess::PROCESS1_ID_byte;
+
+			$varCode = $form->get('varCode')->getData();
+			$command = new D_GetInt($processId, $varCode, $socket);
+			$responseObject = $command->action();
+			var_dump($responseObject);
+			switch($responseObject->getResponseCode()){
+				case ResponseCode::RETURN_INT_short:
+					$response = sprintf("0x%04X", $responseObject->getInt());
+					break;
+				case ResponseCode::OK_short:
+					break;
+				case ResponseCode::NO_short:
+					break;
+				default:
+
+			}
+		}
+		return $this->render('PjplDevBundle:Command:d-get-int.html.twig', ['form' => $form->createView(), 'response' => $response]);
 	}
 	public function dSetIntAction(){
 		return $this->render('PjplDevBundle:Command:d-set-int.html.twig');

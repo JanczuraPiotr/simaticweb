@@ -2,4 +2,12 @@
 
 {% block body %}
 	CommandController::qSetByteAction()
+	<hr>
+	{% if response != null %}
+		wartość w porcie : {{ response }}
+	{% endif %}
+	<hr>
+	{{ form_start(form) }}
+	{{ form_widget(form) }}
+	{{ form_end(form) }}
 {% endblock %}

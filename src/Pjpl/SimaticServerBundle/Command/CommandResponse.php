@@ -1,5 +1,6 @@
 <?php
 namespace Pjpl\SimaticServerBundle\Command;
+use Pjpl\lib\BigEndian;
 
 /**
  * Odpowiedź nadesłana z SimaticServer w odpowiedzi na komendę.

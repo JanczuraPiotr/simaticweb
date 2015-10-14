@@ -15,7 +15,7 @@ class ResponseByte extends CommandResponse{
 	}
 
 	protected function parseResponseStream() {
-		$this->byte = BigEndian::byteFromPack($this->getResponseStream(),5,1);
+		$this->byte = BigEndian::byteFromPack(substr($this->getResponseStream(),5,1));
 	}
 	/**
 	 * @var byte
