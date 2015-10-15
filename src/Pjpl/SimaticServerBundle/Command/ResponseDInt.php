@@ -6,7 +6,7 @@ use Pjpl\lib\BigEndian;
  */
 class ResponseDInt extends CommandResponse{
 	protected function parseResponseStream() {
-		$this->int = BigEndian::intFromPack($this->getResponseStream(), 5, 4);
+		$this->dint = BigEndian::intFromPack($this->getResponseStream(), 5);
 	}
 	public function getDInt(){
 		return $this->dint;

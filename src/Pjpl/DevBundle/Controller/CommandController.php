@@ -101,7 +101,6 @@ class CommandController extends Controller{
 	public function qSetByteAction(Request $request){
 
 		$response = null;
-		$portGroupNr;
 		$form = $this->createFormBuilder();
 		$form->add('portAddr','integer',[
 				'label' => 'adres portu'
@@ -242,7 +241,6 @@ class CommandController extends Controller{
 			$varCode = $form->get('varCode')->getData();
 			$command = new D_GetInt($processId, $varCode, $socket);
 			$responseObject = $command->action();
-			var_dump($responseObject);
 			switch($responseObject->getResponseCode()){
 				case ResponseCode::RETURN_INT_short:
 					$response = sprintf("0x%04X", $responseObject->getInt());
@@ -257,20 +255,200 @@ class CommandController extends Controller{
 		}
 		return $this->render('PjplDevBundle:Command:d-get-int.html.twig', ['form' => $form->createView(), 'response' => $response]);
 	}
-	public function dSetIntAction(){
-		return $this->render('PjplDevBundle:Command:d-set-int.html.twig');
+	public function dSetIntAction(Request $request){
+		$response = null;
+		$form = $this->createFormBuilder();
+		$form->add('varCode','integer',[
+				'label' => 'kod zmiennej '
+		]);
+		$form->add('varVal', 'integer',[
+				'label' => 'wartość'
+		]);
+		$form->add('zapisz', 'submit');
+		$form = $form->getForm();
+
+		$form->handleRequest($request);
+
+		if( $form->isValid()){
+
+			$ip = $this->container->getParameter('simatic_server')['ip'];
+			$port = $this->container->getParameter('simatic_server')['port'];
+			$timeout = $this->container->getParameter('simatic_server')['timeout'];
+			$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
+			$socket_connect = socket_connect($socket, $ip , $port);
+			$processId = ConstProcess::PROCESS1_ID_byte;
+
+			$varCode = $form->get('varCode')->getData();
+			$varVal = $form->get('varVal')->getData();
+			$command = new D_SetInt($processId, $varCode, $varVal, $socket);
+			$responseObject = $command->action();
+			switch($responseObject->getResponseCode()){
+				case ResponseCode::RETURN_BYTE_short:
+					$response = sprintf("0x%02X", $responseObject->getByte());
+					break;
+				case ResponseCode::OK_short:
+					break;
+				case ResponseCode::NO_short:
+					break;
+				default:
+
+			}
+		}
+		return $this->render('PjplDevBundle:Command:d-set-int.html.twig', ['form' => $form->createView(), 'response' => $response]);
 	}
-	public function dGetDIntAction(){
-		return $this->render('PjplDevBundle:Command:d-get-dint.html.twig');
+	public function dGetDIntAction(Request $request){
+		$response = null;
+		$form = $this->createFormBuilder();
+		$form->add('varCode','integer',[
+				'label' => 'kod zmiennej '
+		]);
+		$form->add('pobierz', 'submit');
+		$form = $form->getForm();
+
+		$form->handleRequest($request);
+
+		if( $form->isValid()){
+			$ip = $this->container->getParameter('simatic_server')['ip'];
+			$port = $this->container->getParameter('simatic_server')['port'];
+			$timeout = $this->container->getParameter('simatic_server')['timeout'];
+			$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
+			$socket_connect = socket_connect($socket, $ip , $port);
+			$processId = ConstProcess::PROCESS1_ID_byte;
+
+			$varCode = $form->get('varCode')->getData();
+			$command = new D_GetDInt($processId, $varCode, $socket);
+			$responseObject = $command->action();
+			switch($responseObject->getResponseCode()){
+				case ResponseCode::RETURN_DINT_short:
+					$response = sprintf("0x%08X", $responseObject->getDInt());
+					break;
+				case ResponseCode::OK_short:
+					break;
+				case ResponseCode::NO_short:
+					break;
+				default:
+
+			}
+		}
+		return $this->render('PjplDevBundle:Command:d-get-dint.html.twig', ['form' => $form->createView(), 'response' => $response]);
 	}
-	public function dSetDIntAction(){
-		return $this->render('PjplDevBundle:Command:d-set-dint.html.twig');
+	public function dSetDIntAction(Request $request){
+		$response = null;
+		$form = $this->createFormBuilder();
+		$form->add('varCode','integer',[
+				'label' => 'kod zmiennej '
+		]);
+		$form->add('varVal', 'integer',[
+				'label' => 'wartość'
+		]);
+		$form->add('zapisz', 'submit');
+		$form = $form->getForm();
+
+		$form->handleRequest($request);
+
+		if( $form->isValid()){
+
+			$ip = $this->container->getParameter('simatic_server')['ip'];
+			$port = $this->container->getParameter('simatic_server')['port'];
+			$timeout = $this->container->getParameter('simatic_server')['timeout'];
+			$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
+			$socket_connect = socket_connect($socket, $ip , $port);
+			$processId = ConstProcess::PROCESS1_ID_byte;
+
+			$varCode = $form->get('varCode')->getData();
+			$varVal = $form->get('varVal')->getData();
+			$command = new D_SetDInt($processId, $varCode, $varVal, $socket);
+			$responseObject = $command->action();
+			switch($responseObject->getResponseCode()){
+				case ResponseCode::RETURN_BYTE_short:
+					$response = sprintf("0x%02X", $responseObject->getByte());
+					break;
+				case ResponseCode::OK_short:
+					break;
+				case ResponseCode::NO_short:
+					break;
+				default:
+
+			}
+		}
+		return $this->render('PjplDevBundle:Command:d-set-dint.html.twig', ['form' => $form->createView(), 'response' => $response]);
 	}
-	public function dGetRealAction(){
-		return $this->render('PjplDevBundle:Command:d-get-real.html.twig');
+	public function dGetRealAction(Request $request){
+		$response = null;
+		$form = $this->createFormBuilder();
+		$form->add('varCode','integer',[
+				'label' => 'kod zmiennej '
+		]);
+		$form->add('pobierz', 'submit');
+		$form = $form->getForm();
+
+		$form->handleRequest($request);
+
+		if( $form->isValid()){
+			$ip = $this->container->getParameter('simatic_server')['ip'];
+			$port = $this->container->getParameter('simatic_server')['port'];
+			$timeout = $this->container->getParameter('simatic_server')['timeout'];
+			$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
+			$socket_connect = socket_connect($socket, $ip , $port);
+			$processId = ConstProcess::PROCESS1_ID_byte;
+
+			$varCode = $form->get('varCode')->getData();
+			$command = new D_GetReal($processId, $varCode, $socket);
+			$responseObject = $command->action();
+			switch($responseObject->getResponseCode()){
+				case ResponseCode::RETURN_REAL_short:
+					$response =  $responseObject->getReal();
+					break;
+				case ResponseCode::OK_short:
+					break;
+				case ResponseCode::NO_short:
+					break;
+				default:
+
+			}
+		}
+		return $this->render('PjplDevBundle:Command:d-get-real.html.twig', ['form' => $form->createView(), 'response' => $response]);
 	}
-	public function dSetRealAction(){
-		return $this->render('PjplDevBundle:Command:d-set-real.html.twig');
+	public function dSetRealAction(Request $request){
+		$response = null;
+		$form = $this->createFormBuilder();
+		$form->add('varCode','integer',[
+				'label' => 'kod zmiennej '
+		]);
+		$form->add('varVal', 'number',[
+				'label' => 'wartość'
+		]);
+		$form->add('zapisz', 'submit');
+		$form = $form->getForm();
+
+		$form->handleRequest($request);
+
+		if( $form->isValid()){
+
+			$ip = $this->container->getParameter('simatic_server')['ip'];
+			$port = $this->container->getParameter('simatic_server')['port'];
+			$timeout = $this->container->getParameter('simatic_server')['timeout'];
+			$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
+			$socket_connect = socket_connect($socket, $ip , $port);
+			$processId = ConstProcess::PROCESS1_ID_byte;
+
+			$varCode = $form->get('varCode')->getData();
+			$varVal = $form->get('varVal')->getData();
+			$command = new D_SetReal($processId, $varCode, $varVal, $socket);
+			$responseObject = $command->action();
+			switch($responseObject->getResponseCode()){
+				case ResponseCode::RETURN_BYTE_short:
+					$response = sprintf("0x%02X", $responseObject->getByte());
+					break;
+				case ResponseCode::OK_short:
+					break;
+				case ResponseCode::NO_short:
+					break;
+				default:
+
+			}
+		}
+		return $this->render('PjplDevBundle:Command:d-set-real.html.twig', ['form' => $form->createView(), 'response' => $response]);
 
 	}
 }

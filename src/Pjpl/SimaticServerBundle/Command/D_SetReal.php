@@ -8,10 +8,10 @@ use Pjpl\lib\BigEndian;
  * @author piotr
  */
 class D_SetReal extends Command{
-	public function __construct($processId, $varCode, $val, $socket) {
+	public function __construct($processId, $varCode, $varVal, $socket) {
 		parent::__construct($processId, $socket);
 		$this->varCode = $varCode;
-		$this->val = $val;
+		$this->varVal = $varVal;
 	}
 
 	protected function buildCommandStream() {
@@ -19,7 +19,11 @@ class D_SetReal extends Command{
 				= BigEndian::shortToPack($this->getCommandCode())
 				. BigEndian::byteToPack($this->getProcessId())
 				. BigEndian::shortToPack($this->getVarCode())
-				. BigEndian::floatToPack($this->getVal());
+				. BigEndian::floatToPack($this->getVarVal());
+		$stream = $this->commandStream;
+		for( $i = 0 ; $i < strlen($stream); $i++ ){
+			echo sprintf("buff[%d] = 0x%02X <br>",$i, BigEndian::byteFromPack($stream,$i));
+		}
 	}
 
 	public function getCommandCode() {
@@ -35,8 +39,8 @@ class D_SetReal extends Command{
 	/**
 	 * @return float
 	 */
-	public function getVal(){
-		return $this->val;
+	public function getVarVal(){
+		return $this->varVal;
 	}
 
 	/**
@@ -48,5 +52,5 @@ class D_SetReal extends Command{
 	 * wartość zmiennej
 	 * @var float
 	 */
-	private $val;
+	private $varVal;
 }

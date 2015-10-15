@@ -14,6 +14,10 @@ class ResponseReal extends CommandResponse{
 
 	protected function parseResponseStream() {
 		$this->real = BigEndian::floatFromPack($this->getResponseStream(), 5, 4);
+		$stream = $this->getResponseStream();
+		for( $i = 0 ; $i < strlen($stream); $i++ ){
+			echo sprintf("buff[%d] = 0x%02X <br>",$i, BigEndian::byteFromPack($stream,$i));
+		}
 	}
 
 	/**
