@@ -13,6 +13,7 @@ class ResponseCode {
 	const RETURN_LONG_short    = 0xC104;
 	const RETURN_REAL_short    = 0xC105;
 	const RETURN_LREAL_short   = 0xC106;
+	const RAPORT_FULL_short    = 0xC107;
 
 
 //	/**

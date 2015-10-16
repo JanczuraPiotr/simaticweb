@@ -36,6 +36,7 @@ class CommandCode {
 	const D_SET_DINT_short  = 0x8009;
 	const D_GET_REAL_short  = 0x800A;
 	const D_SET_REAL_short  = 0x800B;
+	const RAPORT_FULL_short = 0x800C;
 
 	// Kody odpowiedzi na komendy. Definicje w ResponseCode
 	// 110000000000000B -> 1111111111111111B => 0xC000 -> 0xCFFF =>  49152 -> 65535

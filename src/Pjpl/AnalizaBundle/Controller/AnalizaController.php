@@ -1,8 +1,10 @@
 <?php
-
 namespace Pjpl\AnalizaBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Pjpl\AnalizaBundle\Logic\ShowArchiwumDump;
+
 
 class AnalizaController extends Controller
 {
@@ -18,7 +20,7 @@ class AnalizaController extends Controller
 			$logic = new ShowArchiwumDump($paginator, $process1Repo, $request->query->getInt('page', 1), 10);
 			$zrzuty = $logic->logic();
 
-			return $this->render('PjplDevBundle:Dev:przeglad-archiwum-dump.html.twig',['zrzuty' => $zrzuty]);
+			return $this->render('PjplAnalizaBundle:Analiza:archiwum-dump.html.twig',['zrzuty' => $zrzuty]);
 		}
 		public function przegladArchiwumVariablesAction(Request $request){
 			$paginator = $this->get('knp_paginator');
@@ -28,6 +30,6 @@ class AnalizaController extends Controller
 			$logic = new ShowArchiwumDump($paginator, $process1Repo, $request->query->getInt('page', 1), 10);
 			$zrzuty = $logic->logic();
 
-			return $this->render('PjplDevBundle:Dev:przeglad-archiwum-variables.html.twig',['zrzuty' => $zrzuty]);
+			return $this->render('PjplAnalizaBundle:Analiza:archiwum-variables.html.twig',['zrzuty' => $zrzuty]);
 		}
 }

@@ -5,3 +5,8 @@ scada:
   defaults:
     _controller: PjplScadaBundle:Scada:index
 
+scada_raport:
+    path: /raport
+    defaults:
+      _controller: PjplScadaBundle:Ajax:raport
+

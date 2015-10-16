@@ -1,11 +1,10 @@
 <?php
-namespace Pjpl\SimaticServerBundle\Logic;
+namespace Pjpl\AnalizaBundle\Logic;
 
 use Knp\Component\Pager\Paginator;
 use Pjpl\SimaticServerBundle\Entity\Process1Repository;
 
 /**
- *
  * @author Piotr Janczura <piotr@janczura.pl>
  */
 class ShowArchiwumDump {

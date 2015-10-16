@@ -137,16 +137,15 @@ class BigEndian {
 		$pack = implode("", $arr);
 		return unpack("ffloat", $pack)["float"];
 	}
-	public static function floatFromPack($pack){
+	public static function floatFromPack($pack, $start){
 		// @todo obsługa błędów w BigEndian
-		$tmp = $pack;
-		$pack = [];
-		$tmpCount = strlen($tmp);
-		for( $i = $tmpCount; $i >= 0; $i-- ){
-			$pack[] = substr($tmp, $i,1);
+		$big = substr($pack, $start, 4);
+		$little = [];
+		for( $i = 4; $i >= 0; $i-- ){
+			$little[] = substr($big, $i,1);
 		}
-		$pack = implode("", $pack);
-		return unpack("ffloat", $pack)['float'];
+		$little = implode("", $little);
+		return unpack("ffloat", $little)['float'];
 	}
 
 

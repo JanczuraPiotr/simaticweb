@@ -49,3 +49,7 @@ dev_command_D_GET_REAL:
 dev_command_D_SET_REAL:
   path: /command/d-set-real
   defaults: { _controller: PjplDevBundle:Command:dSetReal }
+
+dev_command_scada_raport:
+  path: /command/scada-raport
+  defaults: { _controller: PjplDevBundle:Command:scadaRaport }

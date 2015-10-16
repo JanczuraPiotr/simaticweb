@@ -21,7 +21,11 @@
 		</div>
 		{% block body %}{% endblock %}
 		{% block templates %}{% endblock %}
-		{% block javascripts %}{% endblock %}
+		{% block javascripts %}
+			<script src="{{ asset('bundles/pjplscada/js/scada-init.js') }}"></script>
+			<script src="{{ asset('bundles/pjplscada/js/scada-config.js') }}"></script>
+			<script src="{{ asset('bundles/pjplscada/js/scada-main.js') }}"></script>
+		{% endblock %}
 
 	</body>
 

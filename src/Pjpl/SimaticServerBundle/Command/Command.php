@@ -15,6 +15,7 @@ namespace Pjpl\SimaticServerBundle\Command;
  * @author Piotr Janczura <piotr@janczura.pl>
  */
 abstract class Command {
+	const MAX_SOCKET_RECEIVE = 100000; //!?
 	/**
 	 * @param byte processId identyfikator procesu dla którym ma być wykonana komenda
 	 * @param socket gniazdo do SimaticServer
@@ -44,8 +45,8 @@ abstract class Command {
 	public function action(){
 		// @todo obsłużyć błędy
 		$this->buildCommandStream();
-		socket_write($this->socket, $this->getCommandStream(),10);
-		$this->responseStream = socket_read($this->socket, 10);
+		socket_write($this->socket, $this->getCommandStream());
+		$this->responseStream = socket_read($this->socket, static::MAX_SOCKET_RECEIVE);
 		$this->responseBuilder = new CommandResponseBuilder($this->socket, $this->responseStream);
 		$this->responseObject = $this->responseBuilder->build();
 		return $this->responseObject;

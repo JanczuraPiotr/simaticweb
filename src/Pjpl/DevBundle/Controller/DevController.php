@@ -3,8 +3,6 @@
 namespace Pjpl\DevBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-
 use Pjpl\SimaticServerBundle\Logic\ShowArchiwumDump;
 
 class DevController extends Controller

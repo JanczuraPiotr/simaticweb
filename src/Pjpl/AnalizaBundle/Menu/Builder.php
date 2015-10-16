@@ -14,12 +14,12 @@ class Builder {
 				'route' => 'analiza'
 		]);
 
-//		$menuSimaticWeb->addChild("Przegląd archiwum zrzutów", [
-//				'route' => 'dev_przeglad_archiwum_dump'
-//		] );
-//		$menuSimaticWeb->addChild("Przegląd archiwum zmiennych",[
-//				'route' => 'dev_przeglad_archiwum_variables'
-//		]);
+		$menuSimaticWeb->addChild("Przegląd archiwum zrzutów", [
+				'route' => 'analiza_archiwum_dump'
+		] );
+		$menuSimaticWeb->addChild("Przegląd archiwum zmiennych",[
+				'route' => 'analiza_archiwum_variables'
+		]);
 
 		$menuScada = $menu->addChild("SCADA",[
 				'route' => 'scada'

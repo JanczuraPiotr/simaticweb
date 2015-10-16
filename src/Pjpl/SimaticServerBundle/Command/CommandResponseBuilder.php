@@ -99,6 +99,15 @@ class CommandResponseBuilder {
 						, $this->responseCode
 				);
 				break;
+			case ResponseCode::RAPORT_FULL_short:
+				$this->responseObject = new ResponseRaportFull(
+						$this->socket
+						, $this->responseStream
+						, $this->processId
+						, $this->commandCode
+						, $this->responseCode
+				);
+				break;
 			default:
 				$this->responseObject = new ResponseGeneral(
 						$this->socket

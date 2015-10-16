@@ -16,6 +16,8 @@ use Pjpl\SimaticServerBundle\Command\D_SetReal;
 use Pjpl\SimaticServerBundle\S7\Common\ResponseCode;
 use Pjpl\SimaticServerBundle\S7\Common\ConstProcess;
 use Pjpl\SimaticServerBundle\S7\Common\VarCode;
+use Pjpl\SimaticServerBundle\Command\CommandRaportFull;
+use Pjpl\SimaticServerBundle\Process\Variables;
 
 /**
  * @todo Description of CommandController
@@ -450,5 +452,27 @@ class CommandController extends Controller{
 		}
 		return $this->render('PjplDevBundle:Command:d-set-real.html.twig', ['form' => $form->createView(), 'response' => $response]);
 
+	}
+	public function scadaRaportAction(Request $request){
+		$ip = $this->container->getParameter('simatic_server')['ip'];
+		$port = $this->container->getParameter('simatic_server')['port'];
+		$timeout = $this->container->getParameter('simatic_server')['timeout'];
+		$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
+		$socket_connect = socket_connect($socket, $ip , $port);
+		$processId = ConstProcess::PROCESS1_ID_byte;
+
+		$command = new CommandRaportFull($processId, $socket);
+		$responseObject = $command->action();
+		$variables = new Variables(['raport'=> $responseObject]);
+		$raport = [
+				'zmienna_0' => $variables->D_getZmienna0(),
+				'zmienna_1' => $variables->D_getZmienna1(),
+				'zmienna_2' => $variables->D_getZmienna2(),
+				'zmienna_3' => $variables->D_getZmienna3(),
+				'wejście_0' => $variables->I_getInput0(),
+				'wyjście_0' => $variables->Q_getOutput0()
+		];
+		var_dump($raport);
+		return $this->render('PjplDevBundle:Command:scada-raport.html.twig');
 	}
 }

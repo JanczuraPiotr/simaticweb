@@ -22,6 +22,7 @@ class Builder {
 		$menuCommands->addChild('D_SET_DINT', ['route' => 'dev_command_D_SET_DINT']);
 		$menuCommands->addChild('D_GET_REAL', ['route' => 'dev_command_D_GET_REAL']);
 		$menuCommands->addChild('D_SET_REAL', ['route' => 'dev_command_D_SET_REAL']);
+		$menuCommands->addChild('Raport dla scada', ['route' => 'dev_command_scada_raport']);
 
 		$menuAnaliza = $menu->addChild("Analiza",[
 				'route' => 'analiza'
