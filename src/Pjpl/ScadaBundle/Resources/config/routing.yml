@@ -5,8 +5,17 @@ scada:
   defaults:
     _controller: PjplScadaBundle:Scada:index
 
+scada_panel:
+    path: /panel
+    defaults:
+      _controller: PjplScadaBundle:Scada:panel
+
 scada_raport:
     path: /raport
     defaults:
       _controller: PjplScadaBundle:Ajax:raport
 
+scada_set_port:
+  path: /set-port
+  defaults:
+    _controller: PjplScadaBundle:Ajax:setPort

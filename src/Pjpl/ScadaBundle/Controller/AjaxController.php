@@ -13,12 +13,37 @@ use Pjpl\SimaticServerBundle\Process\Variables;
  */
 class AjaxController extends Controller{
 
+	public function setPortAction(Request $request){
+//		$ip = $this->container->getParameter('simatic_server')['ip'];
+//		$port = $this->container->getParameter('simatic_server')['port'];
+//		$timeout_sek = $this->container->getParameter('simatic_server')['timeout_sek'];
+//		$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
+//		socket_set_option($socket,SOL_SOCKET, SO_RCVTIMEO, array("sec"=>$timeout_sek, "usec"=>0));
+//		$socket_connect = socket_connect($socket, $ip , $port);
+//		$processId = ConstProcess::PROCESS1_ID_byte;
+
+		$request = $this->container->get('request');
+		$port = $request->query->get('port');
+		$bit = $request->query->get('bit');
+		$onOff = $request->get('onOff');
+
+		$json = [
+				'port' => $port,
+				'bit' => $bit,
+				'onOff' => $onOff
+		];
+
+		$json = json_encode($json, JSON_UNESCAPED_UNICODE);
+		return new Response($json ,200, ['Content-Type'=>'application/json']);
+	}
+
 	public function raportAction(Request $request){
 
 		$ip = $this->container->getParameter('simatic_server')['ip'];
 		$port = $this->container->getParameter('simatic_server')['port'];
-		$timeout = $this->container->getParameter('simatic_server')['timeout'];
+		$timeout_sek = $this->container->getParameter('simatic_server')['timeout_sek'];
 		$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
+		socket_set_option($socket,SOL_SOCKET, SO_RCVTIMEO, array("sec"=>$timeout_sek, "usec"=>0));
 		$socket_connect = socket_connect($socket, $ip , $port);
 		$processId = ConstProcess::PROCESS1_ID_byte;
 
@@ -26,14 +51,36 @@ class AjaxController extends Controller{
 		$responseObject = $command->action();
 		$variables = new Variables(['raport'=> $responseObject]);
 		$json = [
-				'zmienna_0' => $variables->D_getZmienna0(),
-				'zmienna_1' => $variables->D_getZmienna1(),
-				'zmienna_2' => $variables->D_getZmienna2(),
-				'zmienna_3' => $variables->D_getZmienna3(),
-				'wejście_0' => $variables->I_getInput0(),
-				'wyjście_0' => $variables->Q_getOutput0()
+				'D' => [
+						'Byte' => $variables->D_getZmienna0(),
+						'Int' => $variables->D_getZmienna1(),
+						'DInt' => $variables->D_getZmienna2(),
+						'Real' => $variables->D_getZmienna3(),
+				],
+				'I' => [
+						0 => [
+								0 => $variables->get_I_0_0(),
+								1 => $variables->get_I_0_1(),
+								2 => $variables->get_I_0_2(),
+								3 => $variables->get_I_0_3(),
+								4 => $variables->get_I_0_4(),
+								5 => $variables->get_I_0_5(),
+								6 => $variables->get_I_0_6(),
+								7 => $variables->get_I_0_7(),
+						]
+				],
+				'Q' => [
+						0 => [
+								0 => $variables->get_Q_0_0(),
+								1 => $variables->get_Q_0_1(),
+								2 => $variables->get_Q_0_2(),
+								3 => $variables->get_Q_0_3(),
+								4 => $variables->get_Q_0_4(),
+								5 => $variables->get_Q_0_5(),
+						]
+				]
 		];
-		$json = json_encode($json);
+		$json = json_encode($json, JSON_UNESCAPED_UNICODE);
 		return new Response($json ,200, ['Content-Type'=>'application/json']);
 	}
 }

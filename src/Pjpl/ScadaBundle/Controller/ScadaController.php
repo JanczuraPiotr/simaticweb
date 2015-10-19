@@ -10,4 +10,7 @@ class ScadaController extends Controller
     {
         return $this->render('PjplScadaBundle:Scada:index.html.twig');
     }
+		public function panelAction(){
+			return $this->render('PjplScadaBundle:Scada:panel.html.twig');
+		}
 }

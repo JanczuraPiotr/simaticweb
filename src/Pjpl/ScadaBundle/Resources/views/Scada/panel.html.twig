@@ -1,0 +1,50 @@
+{% extends "PjplScadaBundle::window.html.twig" %}
+
+
+{% block body %}
+	<div id="pomiary">
+		<div id="inputs">
+			<table>
+				<tbody>
+					<tr><td>wejście 0</td><td><input type="checkbox" name="I_0_0" id="i-0-0" disabled="disabled"></td></tr>
+					<tr><td>wejście 1</td><td><input type="checkbox" name="I_0_1" id="i-0-1" disabled="disabled"></td></tr>
+					<tr><td>wejście 2</td><td><input type="checkbox" name="I_0_2" id="i-0-2" disabled="disabled"></td></tr>
+					<tr><td>wejście 3</td><td><input type="checkbox" name="I_0_3" id="i-0-3" disabled="disabled"></td></tr>
+					<tr><td>wejście 4</td><td><input type="checkbox" name="I_0_4" id="i-0-4" disabled="disabled"></td></tr>
+					<tr><td>wejście 5</td><td><input type="checkbox" name="I_0_5" id="i-0-5" disabled="disabled"></td></tr>
+					<tr><td>wejście 6</td><td><input type="checkbox" name="I_0_6" id="i-0-6" disabled="disabled"></td></tr>
+					<tr><td>wejście 7</td><td><input type="checkbox" name="I_0_7" id="i-0-7" disabled="disabled"></td></tr>
+				</tbody>
+			</table>
+		</div>
+		<div id="variables">
+			<table>
+				<tbody>
+					<tr><td>zmienna Byte </td><td><input type="text" name="D_Byte" class="liczba" id="d-byte" size="8"/><td><td><button id="D-Byte-set">Ustaw</button></td></tr>
+					<tr><td>zmienna Int  </td><td><input type="text" name="D_Int"  class="liczba" id="d-int"  size="8"/><td><td><button id="D-Int-set">Ustaw</button></td></tr>
+					<tr><td>zmienna DInt </td><td><input type="text" name="D_DInt" class="liczba" id="d-dint" size="8"/><td><td><button id="D-DInt-set">Ustaw</button></td></tr>
+					<tr><td>zmienna Real </td><td><input type="text" name="D_Real" class="liczba" id="d-real" size="8"/><td><td><button id="D-Real-set">Ustaw</button></td></tr>
+				</tbody>
+			</table>
+		</div>
+		<div id="outputs">
+			<table>
+				<tbody>
+					<tr><td>wyjście 0</td><td><input type="checkbox" name="Q_0" id="q-0-0" class="output" data-port="0" data-bit="0"></td></tr>
+					<tr><td>wyjście 1</td><td><input type="checkbox" name="Q_1" id="q-0-1" class="output" data-port="0" data-bit="1"></td></tr>
+					<tr><td>wyjście 2</td><td><input type="checkbox" name="Q_2" id="q-0-2" class="output" data-port="0" data-bit="2"></td></tr>
+					<tr><td>wyjście 3</td><td><input type="checkbox" name="Q_3" id="q-0-3" class="output" data-port="0" data-bit="3"></td></tr>
+					<tr><td>wyjście 4</td><td><input type="checkbox" name="Q_4" id="q-0-4" class="output" data-port="0" data-bit="4"></td></tr>
+					<tr><td>wyjście 5</td><td><input type="checkbox" name="Q_5" id="q-0-5" class="output" data-port="0" data-bit="5"></td></tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}
+
+		{% block javascripts %}
+			{{ parent() }}
+
+			<script src="{{ asset('bundles/pjplscada/js/scada-panel.js') }}"></script>
+			<script src="{{ asset('bundles/pjplscada/js/scada-panel-app.js') }}"></script>
+		{% endblock %}
