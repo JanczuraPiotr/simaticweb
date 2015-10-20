@@ -40,19 +40,19 @@ scada.Panel = function(){
 	def.priv.newD = function(D){
 		if(D.Byte !== def.D.Byte){
 			def.D.Byte = D.Byte;
-			$('#d-byte').val(D.Byte);
+			$('#d-byte-input').val(D.Byte);
 		}
 		if(D.Int !== def.D.Int){
 			def.D.Int = D.Int;
-			$('#d-int').val(D.Int);
+			$('#d-int-input').val(D.Int);
 		}
 		if(D.DInt !== def.D.DInt){
 			def.D.DInt = D.DInt;
-			$('#d-dint').val(D.DInt);
+			$('#d-dint-input').val(D.DInt);
 		}
 		if(D.Real !== def.D.Ral){
 			def.D.Real = D.Real;
-			$('#d-real').val(D.Real);
+			$('#d-real-input').val(D.Real);
 		}
 	};
 	def.priv.newI = function(I){
@@ -107,8 +107,46 @@ scada.Panel = function(){
 
 		})
 	};
+	def.priv.onButtonD = function(selector, eventTypem, handler){
+		console.info(selector);
+		console.info(eventTypem);
+		console.info(handler);
 
+		var memType = S7.D;
+		var varType = $(this).parent().find('input').data('var-type');
+		var varCode = $(this).parent().find('input').data('var-code');
+		var varVal = $(this).parent().find('input').val();
+
+
+		$.ajax({
+			url : 'set-d',
+			dataType : 'json',
+			async : false,
+			data : {
+				memType : memType,
+				varType : varType,
+				varCode : varCode,
+				varVal  : varVal
+			},
+			success : function(response,status,xhr){
+				// @todo obsłóż
+				console.log('scada.d.set.success');
+				console.log(response);
+				console.log(status);
+			},
+			error : function(jqXHR, status, error){
+				// @todo obsłóż
+				console.error('scada.d.set.error');
+				console.log(jqXHR)
+				console.log(status);
+				console.log(error);
+			}
+		});
+
+	};
 	def.priv.onClickQ = function(selector, eventType,handler){
+		var memType = S7.Q;
+		var varCode = 0; // @todo pobrać kod zmiennej z SimaticServer
 		var port = $(this).data('port');
 		var bit = $(this).data('bit');
 		var onOff;
@@ -120,31 +158,35 @@ scada.Panel = function(){
 		}
 
 		$.ajax({
-			url : 'set-port',
+			url : 'switch-port',
 			contentType: 'application/json; charset=UTF-8',
 			dataType:'json',
 			async : false,
 			data : {
-				port  : port,
-				bit   : bit,
-				onOff : onOff
+				memType : memType,
+				varCode : varCode,
+				port    : port,
+				bit     : bit,
 			},
 			success : function(response,status,xhr){
-				console.log('scada.port.set.success');
-				console.log(response);
-				console.log(status);
+				// @todo obsłóż
+//				console.log('scada.port.set.success');
+//				console.log(response);
+//				console.log(status);
 			},
 			error : function(jqXHR, status, error){
-				console.error('scada.port.set.error');
-				console.log(jqXHR)
-				console.log(status);
-				console.log(error);
+				// @todo obsłóż
+//				console.error('scada.port.set.error');
+//				console.log(jqXHR)
+//				console.log(status);
+//				console.log(error);
 			}
 		});
 	}
 
 	def.priv.init = function (){
 		$('#outputs').delegate('.output','click',def.priv.onClickQ);
+		$('#variables').delegate('button','click',def.priv.onButtonD);
 		def.run = setInterval(def.priv.thread,scada.config.panel.refreshInterval_ms,def);
 	};
 

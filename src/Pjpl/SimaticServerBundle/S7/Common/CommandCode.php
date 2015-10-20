@@ -37,6 +37,9 @@ class CommandCode {
 	const D_GET_REAL_short  = 0x800A;
 	const D_SET_REAL_short  = 0x800B;
 	const RAPORT_FULL_short = 0x800C;
+	const BIT_ON_short      = 0x800D;
+	const BIT_OFF_short     = 0x800E;
+	const BIT_SWITCH_short  = 0x800F;
 
 	// Kody odpowiedzi na komendy. Definicje w ResponseCode
 	// 110000000000000B -> 1111111111111111B => 0xC000 -> 0xCFFF =>  49152 -> 65535

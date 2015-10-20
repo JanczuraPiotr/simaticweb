@@ -20,10 +20,34 @@
 		<div id="variables">
 			<table>
 				<tbody>
-					<tr><td>zmienna Byte </td><td><input type="text" name="D_Byte" class="liczba" id="d-byte" size="8"/><td><td><button id="D-Byte-set">Ustaw</button></td></tr>
-					<tr><td>zmienna Int  </td><td><input type="text" name="D_Int"  class="liczba" id="d-int"  size="8"/><td><td><button id="D-Int-set">Ustaw</button></td></tr>
-					<tr><td>zmienna DInt </td><td><input type="text" name="D_DInt" class="liczba" id="d-dint" size="8"/><td><td><button id="D-DInt-set">Ustaw</button></td></tr>
-					<tr><td>zmienna Real </td><td><input type="text" name="D_Real" class="liczba" id="d-real" size="8"/><td><td><button id="D-Real-set">Ustaw</button></td></tr>
+					<tr>
+						<td>zmienna Byte </td>
+						<td>
+							<input type="text" data-mem-type="D" data-var-type="1" data-var-code="0" class="liczba byte" id="d-byte-input" size="8"/>
+							<button data-name="D_Byte" id="D-Byte-set">Ustaw</button>
+						</td>
+					</tr>
+					<tr>
+						<td>zmienna Int  </td>
+						<td>
+							<input type="text" data-mem-type="D" data-var-type="2" data-var-code="1"   class="liczba int"  id="d-int-input"  size="8"/>
+							<button data-name="D_Int" id="D-Int-set">Ustaw</button>
+						</td>
+					</tr>
+					<tr>
+						<td>zmienna DInt </td>
+						<td>
+							<input type="text" data-mem-type="D" data-var-type="3" data-var-code="2"  class="liczba dint" id="d-dint-input" size="8"/>
+							<button data-name="D_DInt" id="D-DInt-set">Ustaw</button>
+						</td>
+					</tr>
+					<tr>
+						<td>zmienna Real </td>
+						<td>
+							<input type="text" data-mem-type="D" data-var-type="4" data-var-code="3"  class="liczba real" id="d-real-input" size="8"/>
+							<button data-name="D_Real" id="D-Real-set">Ustaw</button>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 		</div>

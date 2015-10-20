@@ -19,3 +19,13 @@ scada_set_port:
   path: /set-port
   defaults:
     _controller: PjplScadaBundle:Ajax:setPort
+
+scada_switch_port:
+  path: /switch-port
+  defaults:
+    _controller: PjplScadaBundle:Ajax:switchPort
+
+scada_set_d:
+  path: /set-d
+  defaults:
+    _controller: PjplScadaBundle:Ajax:setD

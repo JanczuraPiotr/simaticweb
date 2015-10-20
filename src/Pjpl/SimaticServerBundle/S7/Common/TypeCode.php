@@ -9,16 +9,16 @@ class TypeCode {
 	const REAL  = 4;
 	const LREAL = 5;
 
-	const size = [
-			BIT   => 1,
+	public $size = [
+			BYTE  => 1,
 			INT   => 2,
 			DINT  => 4,
 			REAL  => 4,
 			LREAL => 8
 	];
 
-	const name = [
-			BIT   => 'Byte',
+	public $name = [
+			BYTE  => 'Byte',
 			INT   => 'Int',
 			DINT  => 'DInt',
 			REAL  => 'Real',
