@@ -32,7 +32,6 @@ class BigEndian {
 		// @todo obsługa błędów w BigEndian
 		return (ord( substr($pack, $start,1) ) & 0x000000FF);
 	}
-
 	public static function shortToArray($short, array &$buff = null, $start = 0){
 		// @todo obsługa błędów w BigEndian
 		if( $buff && ( $start + 1 < count($buff) ) ){
@@ -45,11 +44,9 @@ class BigEndian {
 			];
 		}
 	}
-	public static function shortToPack($short){
+	public static function shortToPack($short, $start = 0){
 		// @todo obsługa błędów w BigEndian
-		$pack =  pack("n", $short);
-//		echo sprintf("1 bajt 0x%02X <br>", ord(substr($pack,0,1)));
-//		echo sprintf("0 bajt 0x%02X <br>", ord(substr($pack,1,1)));
+		$pack =  pack("n", substr($short, $start, 1));
 		return pack("n", $short);
 	}
 	public static function shortFromArray(array &$buff, $start){
@@ -59,10 +56,10 @@ class BigEndian {
 				+ ( $buff[$start+1] & 0x000000FF )
 		);
 	}
-	public static function shortFromPack($pack){
+	public static function shortFromPack($pack, $start = 0){
 		// @todo obsługa błędów w BigEndian
-		$ret = ( ord(substr($pack,0,1)) & 0x00000000FF) << 8;
-		$ret += ( ord(substr($pack,1,1)) & 0x00000000FF);
+		$ret = ( ord(substr($pack, $start,1)) & 0x00000000FF) << 8;
+		$ret += ( ord(substr($pack,$start + 1,1)) & 0x00000000FF);
 		return $ret & 0x0000FFFF;
 	}
 	public static function intToArray($int, array &$buff = null, $start = 0){
@@ -128,7 +125,7 @@ class BigEndian {
 		}
 		return implode("", $pack);
 	}
-	public static function floatFromArray(array &$buff, $start){
+	public static function floatFromArray(array &$buff, $start = 0){
 		// @todo obsługa błędów w BigEndian
 		$arr = [];
 		for( $i = $start + 3 ; $i >= $start; $i-- ){
@@ -137,7 +134,7 @@ class BigEndian {
 		$pack = implode("", $arr);
 		return unpack("ffloat", $pack)["float"];
 	}
-	public static function floatFromPack($pack, $start){
+	public static function floatFromPack($pack, $start = 0){
 		// @todo obsługa błędów w BigEndian
 		$big = substr($pack, $start, 4);
 		$little = [];

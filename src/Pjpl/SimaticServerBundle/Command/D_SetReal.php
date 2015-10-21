@@ -20,10 +20,10 @@ class D_SetReal extends Command{
 				. BigEndian::byteToPack($this->getProcessId())
 				. BigEndian::shortToPack($this->getVarCode())
 				. BigEndian::floatToPack($this->getVarVal());
-		$stream = $this->commandStream;
-		for( $i = 0 ; $i < strlen($stream); $i++ ){
-			echo sprintf("buff[%d] = 0x%02X <br>",$i, BigEndian::byteFromPack($stream,$i));
-		}
+//		$stream = $this->commandStream;
+//		for( $i = 0 ; $i < strlen($stream); $i++ ){
+//			echo sprintf("buff[%d] = 0x%02X <br>",$i, BigEndian::byteFromPack($stream,$i));
+//		}
 	}
 
 	public function getCommandCode() {

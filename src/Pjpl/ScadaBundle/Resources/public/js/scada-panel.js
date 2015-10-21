@@ -4,6 +4,7 @@ console.log('scada.panel.js');
 scada.Panel = function(){
 	var def = this;
 	def.aktualizacja = false;
+	def.elementInEdit = null;
 	def.publ = {};
 	def.priv = {};
 	// zmienne
@@ -29,28 +30,30 @@ scada.Panel = function(){
 	};
 	// wyjścia
 	def.Q = {
-		0 : 0,
-		1 : 0,
-		2 : 0,
-		3 : 0,
-		4 : 0,
-		5 : 0
+		0 : {
+			0 : 0,
+			1 : 0,
+			2 : 0,
+			3 : 0,
+			4 : 0,
+			5 : 0
+		}
 	};
 
 	def.priv.newD = function(D){
-		if(D.Byte !== def.D.Byte){
+		if(D.Byte !== def.D.Byte && def.elementInEdit !== scada.cf.panel.variables.byte.me.el){
 			def.D.Byte = D.Byte;
 			$('#d-byte-input').val(D.Byte);
 		}
-		if(D.Int !== def.D.Int){
+		if(D.Int !== def.D.Int && def.elementInEdit !== scada.cf.panel.variables.int.me.el){
 			def.D.Int = D.Int;
 			$('#d-int-input').val(D.Int);
 		}
-		if(D.DInt !== def.D.DInt){
+		if(D.DInt !== def.D.DInt && def.elementInEdit !== scada.cf.panel.variables.real.me.el){
 			def.D.DInt = D.DInt;
 			$('#d-dint-input').val(D.DInt);
 		}
-		if(D.Real !== def.D.Ral){
+		if(D.Real !== def.D.Real && def.elementInEdit !== scada.cf.panel.variables.real.me.el){
 			def.D.Real = D.Real;
 			$('#d-real-input').val(D.Real);
 		}
@@ -100,17 +103,17 @@ scada.Panel = function(){
 			},
 			error : function(jqXHR, status, error){
 				console.error('scada.raport.error');
-				console.log(jqXHR)
-				console.log(status);
-				console.log(error);
+//				console.log(jqXHR)
+//				console.log(status);
+//				console.log(error);
 			}
 
 		})
 	};
 	def.priv.onButtonD = function(selector, eventTypem, handler){
-		console.info(selector);
-		console.info(eventTypem);
-		console.info(handler);
+//		console.info(selector);
+//		console.info(eventTypem);
+//		console.info(handler);
 
 		var memType = S7.D;
 		var varType = $(this).parent().find('input').data('var-type');
@@ -130,16 +133,16 @@ scada.Panel = function(){
 			},
 			success : function(response,status,xhr){
 				// @todo obsłóż
-				console.log('scada.d.set.success');
-				console.log(response);
-				console.log(status);
+//				console.log('scada.d.set.success');
+//				console.log(response);
+//				console.log(status);
 			},
 			error : function(jqXHR, status, error){
 				// @todo obsłóż
 				console.error('scada.d.set.error');
-				console.log(jqXHR)
-				console.log(status);
-				console.log(error);
+//				console.log(jqXHR)
+//				console.log(status);
+//				console.log(error);
 			}
 		});
 
@@ -170,24 +173,32 @@ scada.Panel = function(){
 			},
 			success : function(response,status,xhr){
 				// @todo obsłóż
-//				console.log('scada.port.set.success');
+				console.log('scada.port.set.success');
 //				console.log(response);
 //				console.log(status);
 			},
 			error : function(jqXHR, status, error){
 				// @todo obsłóż
-//				console.error('scada.port.set.error');
+				console.error('scada.port.set.error');
 //				console.log(jqXHR)
 //				console.log(status);
 //				console.log(error);
 			}
 		});
 	}
+	def.priv.inputStartEdit = function(event){
+		def.elementInEdit = event.target.id;
+	}
+	def.priv.inputStopEdit = function(event){
+		def.elementInEdit = null;
+	}
 
 	def.priv.init = function (){
-		$('#outputs').delegate('.output','click',def.priv.onClickQ);
-		$('#variables').delegate('button','click',def.priv.onButtonD);
-		def.run = setInterval(def.priv.thread,scada.config.panel.refreshInterval_ms,def);
+		$(scada.cf.panel.outputs.me.id).delegate('.output','click',def.priv.onClickQ);
+		$(scada.cf.panel.variables.me.id).delegate('button','click',def.priv.onButtonD);
+		$(scada.cf.panel.variables.me.id).delegate('input[type=text]','keypress',def.priv.inputStartEdit);
+		$(scada.cf.panel.variables.me.id).delegate('input[type=text]','blur',def.priv.inputStopEdit);
+		def.run = setInterval(def.priv.thread,scada.cf.panel.me.refreshInterval_ms,def);
 	};
 
 
