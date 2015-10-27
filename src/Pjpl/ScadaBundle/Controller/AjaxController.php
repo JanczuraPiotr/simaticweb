@@ -61,7 +61,6 @@ class AjaxController extends Controller{
 		return new Response($json ,200, ['Content-Type'=>'application/json']);
 	}
 
-
 	public function switchPortAction(Request $request){
 		$ip = $this->container->getParameter('simatic_server')['ip'];
 		$port = $this->container->getParameter('simatic_server')['port'];
@@ -125,6 +124,7 @@ class AjaxController extends Controller{
 
 		$command = new CommandRaportFull($processId, $socket);
 		$responseObject = $command->action();
+
 		$variables = new Variables(['raport'=> $responseObject]);
 		$json = [
 				'D' => [

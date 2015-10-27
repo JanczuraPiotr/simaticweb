@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Simatic Web | Scada
+{% endblock %}
+
+{% block css %}
+	{{ parent() }}
+	<link href="{{ asset('bundles/pjplscada/css/scada.css') }}" type="text/css" rel="stylesheet"/>
+{% endblock %}
+
+{% block menu %}
+		{{ knp_menu_render('PjplScadaBundle:Builder:ScadaMenu') }}
+{% endblock %}
+
+
+{% block javascripts %}
+	 {{ parent() }}
+	<script src="{{ asset('bundles/pjplsimaticserver/js/s7.js') }}"></script>
+	<script src="{{ asset('bundles/pjplscada/js/scada-config.js') }}"></script>
+	<script src="{{ asset('bundles/pjplscada/js/scada-init.js') }}"></script>
+{% endblock %}

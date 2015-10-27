@@ -1,4 +1,4 @@
-{% extends "PjplScadaBundle::window.html.twig" %}
+{% extends "PjplScadaBundle::scada-bundle.html.twig" %}
 
 
 {% block body %}
@@ -23,28 +23,36 @@
 					<tr>
 						<td>zmienna Byte </td>
 						<td>
-							<input type="text" data-mem-type="D" data-var-type="1" data-var-code="0" class="liczba byte" id="d-byte-input" size="8"/>
+							<input type="number" min="-120" max="120" data-mem-type="D" data-var-type="1" data-var-code="0" class="liczba byte" id="d-byte-input" size="8"/>
+						</td>
+						<td>
 							<button data-name="D_Byte" id="D-Byte-set">Ustaw</button>
 						</td>
 					</tr>
 					<tr>
 						<td>zmienna Int  </td>
 						<td>
-							<input type="text" data-mem-type="D" data-var-type="2" data-var-code="1"   class="liczba int"  id="d-int-input"  size="8"/>
+							<input type="number" min="-32000" max="32000" data-mem-type="D" data-var-type="2" data-var-code="1"   class="liczba int"  id="d-int-input"  size="8"/>
+						</td>
+						<td>
 							<button data-name="D_Int" id="D-Int-set">Ustaw</button>
 						</td>
 					</tr>
 					<tr>
 						<td>zmienna DInt </td>
 						<td>
-							<input type="text" data-mem-type="D" data-var-type="3" data-var-code="2"  class="liczba dint" id="d-dint-input" size="8"/>
+							<input type="number" min="-2000000000" max="2000000000" data-mem-type="D" data-var-type="3" data-var-code="2"  class="liczba dint" id="d-dint-input" size="8"/>
+						</td>
+						<td>
 							<button data-name="D_DInt" id="D-DInt-set">Ustaw</button>
 						</td>
 					</tr>
 					<tr>
 						<td>zmienna Real </td>
 						<td>
-							<input type="text" data-mem-type="D" data-var-type="4" data-var-code="3"  class="liczba real" id="d-real-input" size="8"/>
+							<input type="number" min="-1000" max="1000" step="0.001" data-mem-type="D" data-var-type="4" data-var-code="3"  class="liczba real" id="d-real-input" size="8"/>
+						</td>
+						<td>
 							<button data-name="D_Real" id="D-Real-set">Ustaw</button>
 						</td>
 					</tr>

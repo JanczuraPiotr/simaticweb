@@ -116,9 +116,9 @@ scada.Panel = function(){
 //		console.info(handler);
 
 		var memType = S7.D;
-		var varType = $(this).parent().find('input').data('var-type');
-		var varCode = $(this).parent().find('input').data('var-code');
-		var varVal = $(this).parent().find('input').val();
+		var varType = $(this).parent().parent().find('input').data('var-type');
+		var varCode = $(this).parent().parent().find('input').data('var-code');
+		var varVal = $(this).parent().parent().find('input').val();
 
 
 		$.ajax({

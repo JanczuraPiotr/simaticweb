@@ -9,7 +9,7 @@ use Pjpl\lib\BigEndian;
  */
 class ResponseRaportFull extends CommandResponse{
 	protected function parseResponseStream() {
-		$this->startD = 17;
+		$this->startD = static::DATA_START;
 		$this->buffDlength = BigEndian::intFromPack($this->getResponseStream(), static::D_LENGTH_POS);
 		$this->startI = $this->startD + $this->buffDlength;
 		$this->buffIlength = BigEndian::intFromPack($this->getResponseStream(), static::I_LENGTH_POS);
@@ -87,6 +87,7 @@ class ResponseRaportFull extends CommandResponse{
 	const SYGNATURA_LENGHT = 5;
 	const WYMIARY_LENGTH = 12;
 	const NAGLOWEK_LENGTH = 17;
+	const DATA_START = 17;
 	const D_LENGTH_POS =  5;
 	const I_LENGTH_POS =  9;
 	const Q_LENGTH_POS =  13;

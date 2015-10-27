@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block css %}
+	{{ parent() }}
+	<link href="{{ asset('bundles/pjpldev/css/dev.css') }}" type="text/css" rel="stylesheet"/>
+{% endblock %}
+
+{% block menu %}
+	{{ knp_menu_render('PjplDevBundle:Builder:DevMenu') }}
+{% endblock %}

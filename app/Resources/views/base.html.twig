@@ -1,13 +1,32 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<!doctype html>
+<html lang="{{app.request.locale}}">
+
+	<head>
+		<title>{% block title %} Simatic Web {% endblock %}</title>
+		<meta charset="UTF-8" />
+
+		{% block css %}
+			<link href="{{ asset('bundles/pjplapp/css/pjpl.css') }}" type="text/css" rel="stylesheet"/>
+			<link href="{{ asset('bundles/pjplapp/css/menu.css') }}" type="text/css" rel="stylesheet"/>
+			<link href="{{ asset('bundles/pjplapp/js/jquery/jquery-ui-1.11.4/jquery-ui.css')}}" type="text/css" rel="stylesheet"/>
+		{% endblock %}
+
+	</head>
+
+	<body>
+		<div class="nav-top">
+			{% block menu %}
+			{% endblock %}
+		</div>
+		<dev class="body">
+			{% block body %}
+			{% endblock %}
+		</dev>
+		{% block javascripts %}
+			<script src="{{ asset('bundles/pjplapp/js/jquery/jquery-2.1.4.min.js') }}"></script>
+			<script src="{{ asset('bundles/pjplapp/js/jquery/jquery-ui-1.11.4/jquery-ui.min.js') }}"></script>
+		{% endblock %}
+
+	</body>
+
 </html>
