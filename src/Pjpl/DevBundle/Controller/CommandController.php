@@ -479,10 +479,10 @@ class CommandController extends Controller{
 		$responseObject = $command->action();
 		$variables = new Variables(['raport'=> $responseObject]);
 		$raport = [
-				'zmienna_0' => $variables->D_getZmienna0(),
-				'zmienna_1' => $variables->D_getZmienna1(),
-				'zmienna_2' => $variables->D_getZmienna2(),
-				'zmienna_3' => $variables->D_getZmienna3(),
+				'zmienna_0' => $variables->D_getZmiennaByte(),
+				'zmienna_1' => $variables->D_getZmiennaInt(),
+				'zmienna_2' => $variables->D_getZmiennaDInt(),
+				'zmienna_3' => $variables->D_getZmiennaReal(),
 				'wejście_0' => $variables->I_getInput0(),
 				'wyjście_0' => $variables->Q_getOutput0()
 		];

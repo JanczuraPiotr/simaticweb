@@ -128,10 +128,10 @@ class AjaxController extends Controller{
 		$variables = new Variables(['raport'=> $responseObject]);
 		$json = [
 				'D' => [
-						'Byte' => $variables->D_getZmienna0(),
-						'Int' => $variables->D_getZmienna1(),
-						'DInt' => $variables->D_getZmienna2(),
-						'Real' => $variables->D_getZmienna3(),
+						'Byte' => $variables->D_getZmiennaByte(),
+						'Int' => $variables->D_getZmiennaInt(),
+						'DInt' => $variables->D_getZmiennaDInt(),
+						'Real' => $variables->D_getZmiennaReal(),
 				],
 				'I' => [
 						0 => [

@@ -1,7 +1,7 @@
 <?php
 namespace Pjpl\SimaticServerBundle\Command;
 /**
- * Description of ResponseNo
+ * @todo Description of ResponseNo
  *
  * @author Piotr Janczura <piotr@janczura.pl>
  */

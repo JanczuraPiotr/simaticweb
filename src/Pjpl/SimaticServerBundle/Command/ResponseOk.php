@@ -2,7 +2,7 @@
 namespace Pjpl\SimaticServerBundle\Command;
 use Pjpl\lib\BigEndian;
 /**
- * Description of ResponseOk
+ * @todo Description of ResponseOk
  *
  * @author piotr
  */

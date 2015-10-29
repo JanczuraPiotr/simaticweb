@@ -2,7 +2,7 @@
 namespace Pjpl\SimaticServerBundle\Command;
 use Pjpl\lib\BigEndian;
 /**
- * Description of ResponseBuff
+ * @todo Description of ResponseBuff
  *
  * @author Piotr Janczura <piotr@janczura.pl>
  */
