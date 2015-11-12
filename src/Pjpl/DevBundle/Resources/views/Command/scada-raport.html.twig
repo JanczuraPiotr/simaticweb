@@ -1,0 +1,57 @@
+{% extends "PjplDevBundle::dev-bundle.html.twig" %}
+
+{% block body %}
+	<table >
+		<tbody>
+			<tr>
+				<td>
+					<table>
+						<tbody>
+							<tr><td>wejście 0</td><td><input type="checkbox" name="I_0_0" id="i-0-0" {{ ( raport.I[0][0] == 1 ? 'checked="true"' : '' ) }} disabled="disabled"></td></tr>
+							<tr><td>wejście 1</td><td><input type="checkbox" name="I_0_1" id="i-0-1" {{ ( raport.I[0][1] == 1 ? 'checked="true"' : '' ) }} disabled="disabled"></td></tr>
+							<tr><td>wejście 2</td><td><input type="checkbox" name="I_0_2" id="i-0-2" {{ ( raport.I[0][2] == 1 ? 'checked="true"' : '' ) }} disabled="disabled"></td></tr>
+							<tr><td>wejście 3</td><td><input type="checkbox" name="I_0_3" id="i-0-3" {{ ( raport.I[0][3] == 1 ? 'checked="true"' : '' ) }} disabled="disabled"></td></tr>
+							<tr><td>wejście 4</td><td><input type="checkbox" name="I_0_4" id="i-0-4" {{ ( raport.I[0][4] == 1 ? 'checked="true"' : '' ) }} disabled="disabled"></td></tr>
+							<tr><td>wejście 5</td><td><input type="checkbox" name="I_0_5" id="i-0-5" {{ ( raport.I[0][5] == 1 ? 'checked="true"' : '' ) }} disabled="disabled"></td></tr>
+							<tr><td>wejście 6</td><td><input type="checkbox" name="I_0_6" id="i-0-6" {{ ( raport.I[0][6] == 1 ? 'checked="true"' : '' ) }} disabled="disabled"></td></tr>
+							<tr><td>wejście 7</td><td><input type="checkbox" name="I_0_7" id="i-0-7" {{ ( raport.I[0][7] == 1 ? 'checked="true"' : '' ) }} disabled="disabled"></td></tr>
+						</tbody>
+					</table>
+				</td>
+
+				<td>
+					<table>
+						<tbody>
+							<tr>
+								<td>zmienna Byte </td><td> {{ raport.D.Byte }} </td>
+							</tr>
+							<tr>
+								<td>zmienna Int  </td><td> {{ raport.D.Int }} </td>
+							</tr>
+							<tr>
+								<td>zmienna DInt </td><td> {{ raport.D.DInt }} </td>
+							</tr>
+							<tr>
+								<td>zmienna Real </td><td> {{ raport.D.Real }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+
+				<td>
+					<table>
+						<tbody>
+							<tr><td>wyjście 0</td><td><input type="checkbox" name="Q_0" {{ ( raport.Q[0][0] == 1 ? 'checked="true"' : '' ) }} disabled="disabled"></td></tr>
+							<tr><td>wyjście 1</td><td><input type="checkbox" name="Q_1" {{ ( raport.Q[0][1] == 1 ? 'checked="true"' : '' ) }} disabled="disabled"></td></tr>
+							<tr><td>wyjście 2</td><td><input type="checkbox" name="Q_2" {{ ( raport.Q[0][2] == 1 ? 'checked="true"' : '' ) }} disabled="disabled"></td></tr>
+							<tr><td>wyjście 3</td><td><input type="checkbox" name="Q_3" {{ ( raport.Q[0][3] == 1 ? 'checked="true"' : '' ) }} disabled="disabled"></td></tr>
+							<tr><td>wyjście 4</td><td><input type="checkbox" name="Q_4" {{ ( raport.Q[0][4] == 1 ? 'checked="true"' : '' ) }} disabled="disabled"></td></tr>
+							<tr><td>wyjście 5</td><td><input type="checkbox" name="Q_5" {{ ( raport.Q[0][5] == 1 ? 'checked="true"' : '' ) }} disabled="disabled"></td></tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+{% endblock %}

@@ -17,7 +17,7 @@ use Pjpl\SimaticServerBundle\S7\Common\ResponseCode;
 use Pjpl\SimaticServerBundle\S7\Common\ConstProcess;
 use Pjpl\SimaticServerBundle\S7\Common\VarCode;
 use Pjpl\SimaticServerBundle\Command\CommandRaportFull;
-use Pjpl\SimaticServerBundle\Process\Variables;
+use Pjpl\SimaticServerBundle\Process\VariablesRaport;
 
 /**
  * @todo Description of CommandController
@@ -55,7 +55,7 @@ class CommandController extends Controller{
 			$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
 			socket_set_option($socket,SOL_SOCKET, SO_RCVTIMEO, array("sec"=>$timeout_sek, "usec"=>0));
 			$socket_connect = socket_connect($socket, $ip , $port);
-			
+
 			$processId = 1;//$form->get('processId')->getData();
 			$portGroupNr = $form->get('portGroupNr')->getData();
 			$command = new I_GetByte($processId, $portGroupNr, $socket);
@@ -473,20 +473,42 @@ class CommandController extends Controller{
 		$timeout_sek = $this->container->getParameter('simatic_server')['timeout_sek'];
 		$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
 		socket_set_option($socket,SOL_SOCKET, SO_RCVTIMEO, array("sec"=>$timeout_sek, "usec"=>0));
+		$socket_connect = socket_connect($socket, $ip , $port);
 		$processId = ConstProcess::PROCESS1_ID_byte;
 
 		$command = new CommandRaportFull($processId, $socket);
 		$responseObject = $command->action();
-		$variables = new Variables(['raport'=> $responseObject]);
+		$variables = new VariablesRaport(['raport'=> $responseObject]);
 		$raport = [
-				'zmienna_0' => $variables->D_getZmiennaByte(),
-				'zmienna_1' => $variables->D_getZmiennaInt(),
-				'zmienna_2' => $variables->D_getZmiennaDInt(),
-				'zmienna_3' => $variables->D_getZmiennaReal(),
-				'wejście_0' => $variables->I_getInput0(),
-				'wyjście_0' => $variables->Q_getOutput0()
+				'D' => [
+						'Byte' => $variables->D_getZmiennaByte(),
+						'Int' => $variables->D_getZmiennaInt(),
+						'DInt' => $variables->D_getZmiennaDInt(),
+						'Real' => $variables->D_getZmiennaReal(),
+				],
+				'I' => [
+						0 => [
+								0 => $variables->get_I_0_0(),
+								1 => $variables->get_I_0_1(),
+								2 => $variables->get_I_0_2(),
+								3 => $variables->get_I_0_3(),
+								4 => $variables->get_I_0_4(),
+								5 => $variables->get_I_0_5(),
+								6 => $variables->get_I_0_6(),
+								7 => $variables->get_I_0_7(),
+						]
+				],
+				'Q' => [
+						0 => [
+								0 => $variables->get_Q_0_0(),
+								1 => $variables->get_Q_0_1(),
+								2 => $variables->get_Q_0_2(),
+								3 => $variables->get_Q_0_3(),
+								4 => $variables->get_Q_0_4(),
+								5 => $variables->get_Q_0_5(),
+						]
+				]
 		];
-		var_dump($raport);
-		return $this->render('PjplDevBundle:Command:scada-raport.html.twig');
+		return $this->render('PjplDevBundle:Command:scada-raport.html.twig',['raport' => $raport]);
 	}
 }

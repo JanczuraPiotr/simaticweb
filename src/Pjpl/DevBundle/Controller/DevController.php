@@ -1,5 +1,4 @@
 <?php
-
 namespace Pjpl\DevBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

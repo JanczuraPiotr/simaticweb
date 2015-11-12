@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Pjpl\SimaticServerBundle\Command\BitSwitch;
 use Pjpl\SimaticServerBundle\Command\CommandRaportFull;
 use Pjpl\SimaticServerBundle\S7\Common\ConstProcess;
-use Pjpl\SimaticServerBundle\Process\Variables;
+use Pjpl\SimaticServerBundle\Process\VariablesRaport;
 use Pjpl\SimaticServerBundle\S7\Common\TypeCode;
 /**
  * @todo Description of AjaxController
@@ -125,7 +125,7 @@ class AjaxController extends Controller{
 		$command = new CommandRaportFull($processId, $socket);
 		$responseObject = $command->action();
 
-		$variables = new Variables(['raport'=> $responseObject]);
+		$variables = new VariablesRaport(['raport'=> $responseObject]);
 		$json = [
 				'D' => [
 						'Byte' => $variables->D_getZmiennaByte(),

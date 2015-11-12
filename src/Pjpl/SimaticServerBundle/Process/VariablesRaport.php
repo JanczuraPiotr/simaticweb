@@ -8,7 +8,7 @@ use Pjpl\SimaticServerBundle\S7\Common\VarOffset;
  *
  * @author Piotr Janczura <piotr@janczura.pl>
  */
-class Variables {
+class VariablesRaport {
 	public function __construct(array $params) {
 		if(isset($params['raport'])){
 			$this->setRaport($params['raport']);
@@ -30,6 +30,9 @@ class Variables {
 		return $this->raport->D_getReal(VarOffset::ZMIENNA_REAL);
 	}
 
+	public function get_I_0(){
+		return $this->raport->I_getByte(VarOffset::IN_1);
+	}
 	public function get_I_0_0(){
 		if(!isset($this->I_0_0)){
 			$this->I_0_0 = ( $this->raport->I_getByte(VarOffset::IN_1) & 0x01 );
@@ -79,6 +82,9 @@ class Variables {
 		return $this->I_0_7;
 	}
 
+	public function get_Q_0(){
+		return  $this->raport->Q_getByte(VarOffset::OUT_1);
+	}
 	public function get_Q_0_0(){
 		if(!isset($this->Q_0_0)){
 			$this->Q_0_0 = ( $this->raport->Q_getByte(VarOffset::OUT_1) & 0x01 );
