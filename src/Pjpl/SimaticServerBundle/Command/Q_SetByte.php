@@ -3,11 +3,20 @@ namespace Pjpl\SimaticServerBundle\Command;
 use Pjpl\lib\BigEndian;
 use Pjpl\SimaticServerBundle\S7\Common\CommandCode;
 /**
- * Description of Q_SetByte
+ * @todo Description of Q_SetByte
  *
  * @author Piotr Janczura <piotr@janczura.pl>
  */
 class Q_SetByte extends Command{
+	/**
+	 * @var int
+	 */
+	private $addr;
+	/**
+	 * @var byte
+	 */
+	private $val;
+
 	/**
 	 * @param byte processId identyfikator procesu dla którym ma być wykonana komenda
 	 * @param int $addr adres zmiennej wyjściowej
@@ -43,12 +52,4 @@ class Q_SetByte extends Command{
 		return CommandCode::Q_SET_BYTE_short;
 	}
 
-	/**
-	 * @var int
-	 */
-	private $addr;
-	/**
-	 * @var byte
-	 */
-	private $val;
 }

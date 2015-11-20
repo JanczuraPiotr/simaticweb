@@ -49,14 +49,10 @@ class CommandController extends Controller{
 		$form->handleRequest($request);
 		if( $form->isValid()){
 
-			$ip = $this->container->getParameter('simatic_server')['ip'];
-			$port = $this->container->getParameter('simatic_server')['port'];
-			$timeout_sek = $this->container->getParameter('simatic_server')['timeout_sek'];
-			$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
-			socket_set_option($socket,SOL_SOCKET, SO_RCVTIMEO, array("sec"=>$timeout_sek, "usec"=>0));
-			$socket_connect = socket_connect($socket, $ip , $port);
+			$processId = ConstProcess::PROCESS1_ID_byte;
+			$simaticServerSocket = $this->get('simatic_server_socket');
+			$socket = $simaticServerSocket->getSocket();
 
-			$processId = 1;//$form->get('processId')->getData();
 			$portGroupNr = $form->get('portGroupNr')->getData();
 			$command = new I_GetByte($processId, $portGroupNr, $socket);
 			$responseObject = $command->action();
@@ -78,15 +74,10 @@ class CommandController extends Controller{
 		return $this->render('PjplDevBundle:Command:i-get-byte.html.twig', ['form' => $form->createView(), 'response' => $response]);
 	}
 	public function qGetByteAction(){
-
-		$ip = $this->container->getParameter('simatic_server')['ip'];
-		$port = $this->container->getParameter('simatic_server')['port'];
-		$timeout_sek = $this->container->getParameter('simatic_server')['timeout_sek'];
-		$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
-		socket_set_option($socket,SOL_SOCKET, SO_RCVTIMEO, array("sec"=>$timeout_sek, "usec"=>0));
-		$socket_connect = socket_connect($socket, $ip , $port);
-
 		$processId = ConstProcess::PROCESS1_ID_byte;
+		$simaticServerSocket = $this->get('simatic_server_socket');
+		$socket = $simaticServerSocket->getSocket();
+
 		$varId = VarCode::ZMIENNA_BYTE;
 		$command = new Q_GetByte($processId, $varId, $socket);
 		$responseObject = $command->action();
@@ -121,13 +112,10 @@ class CommandController extends Controller{
 		$form->handleRequest($request);
 
 		if( $form->isValid()){
-			$ip = $this->container->getParameter('simatic_server')['ip'];
-			$port = $this->container->getParameter('simatic_server')['port'];
-			$timeout_sek = $this->container->getParameter('simatic_server')['timeout_sek'];
-			$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
-			socket_set_option($socket,SOL_SOCKET, SO_RCVTIMEO, array("sec"=>$timeout_sek, "usec"=>0));
-			$socket_connect = socket_connect($socket, $ip , $port);
 			$processId = ConstProcess::PROCESS1_ID_byte;
+			$simaticServerSocket = $this->get('simatic_server_socket');
+			$socket = $simaticServerSocket->getSocket();
+
 
 			$portAddr = $form->get('portAddr')->getData();
 			$portVal = $form->get('portVal')->getData();
@@ -162,13 +150,9 @@ class CommandController extends Controller{
 		$form->handleRequest($request);
 
 		if( $form->isValid()){
-			$ip = $this->container->getParameter('simatic_server')['ip'];
-			$port = $this->container->getParameter('simatic_server')['port'];
-			$timeout_sek = $this->container->getParameter('simatic_server')['timeout_sek'];
-			$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
-			socket_set_option($socket,SOL_SOCKET, SO_RCVTIMEO, array("sec"=>$timeout_sek, "usec"=>0));
-			$socket_connect = socket_connect($socket, $ip , $port);
 			$processId = ConstProcess::PROCESS1_ID_byte;
+			$simaticServerSocket = $this->get('simatic_server_socket');
+			$socket = $simaticServerSocket->getSocket();
 
 			$varCode = $form->get('varCode')->getData();
 			$command = new D_GetByte($processId, $varCode, $socket);
@@ -203,13 +187,9 @@ class CommandController extends Controller{
 
 		if( $form->isValid()){
 
-			$ip = $this->container->getParameter('simatic_server')['ip'];
-			$port = $this->container->getParameter('simatic_server')['port'];
-			$timeout_sek = $this->container->getParameter('simatic_server')['timeout_sek'];
-			$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
-			socket_set_option($socket,SOL_SOCKET, SO_RCVTIMEO, array("sec"=>$timeout_sek, "usec"=>0));
-			$socket_connect = socket_connect($socket, $ip , $port);
 			$processId = ConstProcess::PROCESS1_ID_byte;
+			$simaticServerSocket = $this->get('simatic_server_socket');
+			$socket = $simaticServerSocket->getSocket();
 
 			$varCode = $form->get('varCode')->getData();
 			$varVal = $form->get('varVal')->getData();
@@ -241,13 +221,9 @@ class CommandController extends Controller{
 		$form->handleRequest($request);
 
 		if( $form->isValid()){
-			$ip = $this->container->getParameter('simatic_server')['ip'];
-			$port = $this->container->getParameter('simatic_server')['port'];
-			$timeout_sek = $this->container->getParameter('simatic_server')['timeout_sek'];
-			$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
-			socket_set_option($socket,SOL_SOCKET, SO_RCVTIMEO, array("sec"=>$timeout_sek, "usec"=>0));
-			$socket_connect = socket_connect($socket, $ip , $port);
 			$processId = ConstProcess::PROCESS1_ID_byte;
+			$simaticServerSocket = $this->get('simatic_server_socket');
+			$socket = $simaticServerSocket->getSocket();
 
 			$varCode = $form->get('varCode')->getData();
 			$command = new D_GetInt($processId, $varCode, $socket);
@@ -282,13 +258,9 @@ class CommandController extends Controller{
 
 		if( $form->isValid()){
 
-			$ip = $this->container->getParameter('simatic_server')['ip'];
-			$port = $this->container->getParameter('simatic_server')['port'];
-			$timeout_sek = $this->container->getParameter('simatic_server')['timeout_sek'];
-			$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
-			socket_set_option($socket,SOL_SOCKET, SO_RCVTIMEO, array("sec"=>$timeout_sek, "usec"=>0));
-			$socket_connect = socket_connect($socket, $ip , $port);
 			$processId = ConstProcess::PROCESS1_ID_byte;
+			$simaticServerSocket = $this->get('simatic_server_socket');
+			$socket = $simaticServerSocket->getSocket();
 
 			$varCode = $form->get('varCode')->getData();
 			$varVal = $form->get('varVal')->getData();
@@ -320,13 +292,10 @@ class CommandController extends Controller{
 		$form->handleRequest($request);
 
 		if( $form->isValid()){
-			$ip = $this->container->getParameter('simatic_server')['ip'];
-			$port = $this->container->getParameter('simatic_server')['port'];
-			$timeout_sek = $this->container->getParameter('simatic_server')['timeout_sek'];
-			$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
-			socket_set_option($socket,SOL_SOCKET, SO_RCVTIMEO, array("sec"=>$timeout_sek, "usec"=>0));
-			$socket_connect = socket_connect($socket, $ip , $port);
+
 			$processId = ConstProcess::PROCESS1_ID_byte;
+			$simaticServerSocket = $this->get('simatic_server_socket');
+			$socket = $simaticServerSocket->getSocket();
 
 			$varCode = $form->get('varCode')->getData();
 			$command = new D_GetDInt($processId, $varCode, $socket);
@@ -361,13 +330,9 @@ class CommandController extends Controller{
 
 		if( $form->isValid()){
 
-			$ip = $this->container->getParameter('simatic_server')['ip'];
-			$port = $this->container->getParameter('simatic_server')['port'];
-			$timeout_sek = $this->container->getParameter('simatic_server')['timeout_sek'];
-			$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
-			socket_set_option($socket,SOL_SOCKET, SO_RCVTIMEO, array("sec"=>$timeout_sek, "usec"=>0));
-			$socket_connect = socket_connect($socket, $ip , $port);
 			$processId = ConstProcess::PROCESS1_ID_byte;
+			$simaticServerSocket = $this->get('simatic_server_socket');
+			$socket = $simaticServerSocket->getSocket();
 
 			$varCode = $form->get('varCode')->getData();
 			$varVal = $form->get('varVal')->getData();
@@ -399,13 +364,10 @@ class CommandController extends Controller{
 		$form->handleRequest($request);
 
 		if( $form->isValid()){
-			$ip = $this->container->getParameter('simatic_server')['ip'];
-			$port = $this->container->getParameter('simatic_server')['port'];
-			$timeout_sek = $this->container->getParameter('simatic_server')['timeout_sek'];
-			$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
-			socket_set_option($socket,SOL_SOCKET, SO_RCVTIMEO, array("sec"=>$timeout_sek, "usec"=>0));
-			$socket_connect = socket_connect($socket, $ip , $port);
+
 			$processId = ConstProcess::PROCESS1_ID_byte;
+			$simaticServerSocket = $this->get('simatic_server_socket');
+			$socket = $simaticServerSocket->getSocket();
 
 			$varCode = $form->get('varCode')->getData();
 			$command = new D_GetReal($processId, $varCode, $socket);
@@ -440,13 +402,9 @@ class CommandController extends Controller{
 
 		if( $form->isValid()){
 
-			$ip = $this->container->getParameter('simatic_server')['ip'];
-			$port = $this->container->getParameter('simatic_server')['port'];
-			$timeout_sek = $this->container->getParameter('simatic_server')['timeout_sek'];
-			$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
-			socket_set_option($socket,SOL_SOCKET, SO_RCVTIMEO, array("sec"=>$timeout_sek, "usec"=>0));
-			$socket_connect = socket_connect($socket, $ip , $port);
 			$processId = ConstProcess::PROCESS1_ID_byte;
+			$simaticServerSocket = $this->get('simatic_server_socket');
+			$socket = $simaticServerSocket->getSocket();
 
 			$varCode = $form->get('varCode')->getData();
 			$varVal = $form->get('varVal')->getData();
@@ -468,13 +426,10 @@ class CommandController extends Controller{
 
 	}
 	public function scadaRaportAction(Request $request){
-		$ip = $this->container->getParameter('simatic_server')['ip'];
-		$port = $this->container->getParameter('simatic_server')['port'];
-		$timeout_sek = $this->container->getParameter('simatic_server')['timeout_sek'];
-		$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
-		socket_set_option($socket,SOL_SOCKET, SO_RCVTIMEO, array("sec"=>$timeout_sek, "usec"=>0));
-		$socket_connect = socket_connect($socket, $ip , $port);
+
 		$processId = ConstProcess::PROCESS1_ID_byte;
+		$simaticServerSocket = $this->get('simatic_server_socket');
+		$socket = $simaticServerSocket->getSocket();
 
 		$command = new CommandRaportFull($processId, $socket);
 		$responseObject = $command->action();

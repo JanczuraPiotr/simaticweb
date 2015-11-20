@@ -9,6 +9,19 @@ use Pjpl\lib\BigEndian;
  */
 class BitSwitch extends Command{
 	/**
+	 * @var byte
+	 */
+	private $memType;
+	/**
+	 * @var short
+	 */
+	private $varCode;
+	/**
+	 * @var byte
+	 */
+	private $bit;
+
+	/**
 	 * @param byte $processId
 	 * @param byte $memType
 	 * @param short $varCode
@@ -51,17 +64,4 @@ class BitSwitch extends Command{
 	public function getCommandCode() {
 		return CommandCode::BIT_SWITCH_short;
 	}
-
-	/**
-	 * @var byte
-	 */
-	private $memType;
-	/**
-	 * @var short
-	 */
-	private $varCode;
-	/**
-	 * @var byte
-	 */
-	private $bit;
 }

@@ -2,7 +2,6 @@
 namespace Pjpl\DevBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Pjpl\SimaticServerBundle\Logic\ShowArchiwumDump;
 
 class DevController extends Controller
 {

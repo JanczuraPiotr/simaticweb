@@ -5,9 +5,20 @@ use Pjpl\lib\BigEndian;
 /**
  * @todo Description of D_SetDInt
  *
- * @author piotr
+ * @author Piotr Janczura <piotr@janczura.pl>
  */
 class D_SetDInt extends Command{
+	/**
+	 * kod zmiennej zmiennej
+	 * @var short
+	 */
+	private $varCode;
+	/**
+	 * wartość zmiennej
+	 * @var int
+	 */
+	private $varVal;
+
 	public function __construct($processId, $varCode, $varVal, $socket) {
 		parent::__construct($processId, $socket);
 		$this->varCode = $varCode;
@@ -39,14 +50,5 @@ class D_SetDInt extends Command{
 		return $this->varVal;
 	}
 
-	/**
-	 * kod zmiennej zmiennej
-	 * @var short
-	 */
-	private $varCode;
-	/**
-	 * wartość zmiennej
-	 * @var int
-	 */
-	private $varVal;
+
 }

@@ -1,5 +1,4 @@
 'use strict';
-console.log('scada.config.js');
 
 var scada = scada || {};
 scada.cf = scada.cf || {};
@@ -62,4 +61,4 @@ scada.cf = {
 			}
 		}
 	},
-}
+};

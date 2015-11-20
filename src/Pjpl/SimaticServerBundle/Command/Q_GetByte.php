@@ -9,6 +9,12 @@ use Pjpl\lib\BigEndian;
  * @author Piotr Janczura <piotr@janczura.pl>
  */
 class Q_GetByte extends Command{
+	/**
+	 * identyfikator zmiennej
+	 * @var short
+	 */
+	private $varId;
+
 	public function __construct($processId, $varId, $socket) {
 		parent::__construct($processId, $socket);
 		$this->varId = $varId;
@@ -28,9 +34,5 @@ class Q_GetByte extends Command{
 	public function getVarId(){
 		return $this->varId;
 	}
-	/**
-	 * identyfikator zmiennej
-	 * @var short
-	 */
-	private $varId;
+
 }

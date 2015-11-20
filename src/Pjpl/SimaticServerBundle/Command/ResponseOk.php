@@ -1,10 +1,10 @@
 <?php
 namespace Pjpl\SimaticServerBundle\Command;
-use Pjpl\lib\BigEndian;
+
 /**
  * @todo Description of ResponseOk
  *
- * @author piotr
+ * @author Piotr Janczura <piotr@janczura.pl>
  */
 class ResponseOk extends CommandResponse{
 	protected function parseResponseStream() {

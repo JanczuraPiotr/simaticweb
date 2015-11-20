@@ -9,6 +9,11 @@ use Pjpl\lib\BigEndian;
  * @author piotr
  */
 class D_GetReal extends Command{
+	/**
+	 * adres komórki pamięci
+	 * @var float
+	 */
+	private $varCode;
 
 	/**
 	 * @param byte $processId identyfikator procesu dla którym ma być wykonana komenda
@@ -34,10 +39,4 @@ class D_GetReal extends Command{
 	public function getVarCode(){
 		return $this->varCode;
 	}
-
-	/**
-	 * adres komórki pamięci
-	 * @var float
-	 */
-	private $varCode;
 }

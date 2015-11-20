@@ -1,6 +1,5 @@
 <?php
 namespace Pjpl\SimaticServerBundle\Command;
-use Pjpl\lib\BigEndian;
 
 /**
  * Odpowiedź nadesłana z SimaticServer w odpowiedzi na komendę.
@@ -22,6 +21,32 @@ use Pjpl\lib\BigEndian;
  */
 abstract class CommandResponse {
 	/**
+	 * Gnizado do SimaticServer
+	 * @var resource
+	 */
+	private $socket;
+	/**
+	 * String zwrócony z SimaticServer jako zrzut attrybutów odpowiedzi.
+	 * @var string
+	 */
+	private $responseStream;
+	/**
+	 * Identyfikator procesu który odesłał odpowiedź
+	 * @var byte
+	 */
+	private $processId;
+	/**
+	 * Kod komendy która zwróciła odpowiedź
+	 * @var short
+	 */
+	private $commandCode;
+	/**
+	 * Kod zwróconej odpowiedzi.
+	 * @var short
+	 */
+	private $responseCode;
+
+	/**
 	 * @param resource $socket Gniazdo do SimaticServer
 	 * @param string $responseStream Strumień odebrany z SimaticServer
 	 * @param byte $processId identyfikator proces zwracającego komendę
@@ -37,7 +62,7 @@ abstract class CommandResponse {
 		$this->init();
 	}
 	/**
-	 * Gnizado do SimaticServer
+	 * Gniazdo do SimaticServer
 	 * @return socket
 	 */
 	public function getSocket(){
@@ -81,29 +106,4 @@ abstract class CommandResponse {
 		$this->parseResponseStream();
 	}
 
-	/**
-	 * Gnizado do SimaticServer
-	 * @var resource
-	 */
-	private $socket;
-	/**
-	 * String zwrócony z SimaticServer jako zrzut attrybutów odpowiedzi.
-	 * @var string
-	 */
-	private $responseStream;
-	/**
-	 * Identyfikator procesu który odesłał odpowiedź
-	 * @var byte
-	 */
-	private $processId;
-	/**
-	 * Kod komendy która zwróciła odpowiedź
-	 * @var short
-	 */
-	private $commandCode;
-	/**
-	 * Kod zwróconej odpowiedzi.
-	 * @var short
-	 */
-	private $responseCode;
 }

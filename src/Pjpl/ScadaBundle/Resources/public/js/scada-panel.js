@@ -1,5 +1,4 @@
 'use strict';
-console.log('scada.panel.js');
 
 scada.Panel = function(){
 	var def = this;
@@ -91,7 +90,6 @@ scada.Panel = function(){
 		}
 	};
 	def.priv.thread = function(){
-		console.log('thread');
 		$.ajax({
 			url: '/scada/raport',
 			dataType : 'json',
@@ -103,18 +101,11 @@ scada.Panel = function(){
 			},
 			error : function(jqXHR, status, error){
 				console.error('scada.raport.error');
-//				console.log(jqXHR)
-//				console.log(status);
-//				console.log(error);
 			}
 
 		})
 	};
 	def.priv.onButtonD = function(selector, eventTypem, handler){
-//		console.info(selector);
-//		console.info(eventTypem);
-//		console.info(handler);
-
 		var memType = S7.D;
 		var varType = $(this).parent().parent().find('input').data('var-type');
 		var varCode = $(this).parent().parent().find('input').data('var-code');
@@ -133,16 +124,11 @@ scada.Panel = function(){
 			},
 			success : function(response,status,xhr){
 				// @todo obsłóż
-//				console.log('scada.d.set.success');
-//				console.log(response);
-//				console.log(status);
+				// console.log('scada.d.set.success');
 			},
 			error : function(jqXHR, status, error){
 				// @todo obsłóż
 				console.error('scada.d.set.error');
-//				console.log(jqXHR)
-//				console.log(status);
-//				console.log(error);
 			}
 		});
 
@@ -173,16 +159,11 @@ scada.Panel = function(){
 			},
 			success : function(response,status,xhr){
 				// @todo obsłóż
-				console.log('scada.port.set.success');
-//				console.log(response);
-//				console.log(status);
+				// console.log('scada.port.set.success');
 			},
 			error : function(jqXHR, status, error){
 				// @todo obsłóż
 				console.error('scada.port.set.error');
-//				console.log(jqXHR)
-//				console.log(status);
-//				console.log(error);
 			}
 		});
 	}

@@ -7,6 +7,10 @@ use Pjpl\lib\BigEndian;
  * @author Piotr Janczura <piotr@janczura.pl>
  */
 class ResponseReal extends CommandResponse{
+	/**
+	 * @var float
+	 */
+	private $real;
 
 	public function getReal(){
 		return $this->real;
@@ -14,12 +18,6 @@ class ResponseReal extends CommandResponse{
 
 	protected function parseResponseStream() {
 		$this->real = BigEndian::floatFromPack($this->getResponseStream(), 5);
-		$stream = $this->getResponseStream();
+		$stream = $this->getResponseStream(); // @todo
 	}
-
-	/**
-	 * @var float
-	 */
-	private $real;
-
 }

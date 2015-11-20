@@ -7,6 +7,14 @@ use Pjpl\lib\BigEndian;
  * @author Piotr Janczura <piotr@janczura.pl>
  */
 class ResponseBuff extends CommandResponse{
+	/**
+	 * @var int
+	 */
+	private $buffSize;
+	/**
+	 * @var array
+	 */
+	private $buff;
 
 	public function getBuffSize(){
 		return $this->buffSize;
@@ -24,12 +32,4 @@ class ResponseBuff extends CommandResponse{
 		}
 	}
 
-	/**
-	 * @var int
-	 */
-	private $buffSize;
-	/**
-	 * @var array
-	 */
-	private $buff;
 }

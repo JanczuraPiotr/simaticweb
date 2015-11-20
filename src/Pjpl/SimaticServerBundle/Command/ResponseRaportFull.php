@@ -8,6 +8,38 @@ use Pjpl\lib\BigEndian;
  * @author Piotr Janczura <piotr@janczura.pl>
  */
 class ResponseRaportFull extends CommandResponse{
+	const SYGNATURA_LENGHT = 5;
+	const WYMIARY_LENGTH = 12;
+	const NAGLOWEK_LENGTH = 17;
+	const DATA_START = 17;
+	const D_LENGTH_POS =  5;
+	const I_LENGTH_POS =  9;
+	const Q_LENGTH_POS =  13;
+	/**
+	 * @var int
+	 */
+	private $startD;
+	/**
+	 * @var int
+	 */
+	private $buffDlength = 0;
+	/**
+	 * @var int
+	 */
+	private $startI;
+	/**
+	 * @var int
+	 */
+	private $buffIlength = 0;
+	/**
+	 * @var int
+	 */
+	private $startQ;
+	/**
+	 * @var int
+	 */
+	private $buffQlength = 0;
+
 	protected function parseResponseStream() {
 		$this->startD = static::DATA_START;
 		$this->buffDlength = BigEndian::intFromPack($this->getResponseStream(), static::D_LENGTH_POS);
@@ -59,36 +91,4 @@ class ResponseRaportFull extends CommandResponse{
 		return BigEndian::byteFromPack($this->getResponseStream(), $this->startQ + $start);
 	}
 
-	/**
-	 * @var int
-	 */
-	private $startD;
-	/**
-	 * @var int
-	 */
-	private $buffDlength = 0;
-	/**
-	 * @var int
-	 */
-	private $startI;
-	/**
-	 * @var int
-	 */
-	private $buffIlength = 0;
-	/**
-	 * @var int
-	 */
-	private $startQ;
-	/**
-	 * @var int
-	 */
-	private $buffQlength = 0;
-
-	const SYGNATURA_LENGHT = 5;
-	const WYMIARY_LENGTH = 12;
-	const NAGLOWEK_LENGTH = 17;
-	const DATA_START = 17;
-	const D_LENGTH_POS =  5;
-	const I_LENGTH_POS =  9;
-	const Q_LENGTH_POS =  13;
 }

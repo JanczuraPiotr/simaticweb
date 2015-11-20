@@ -2,7 +2,7 @@
 namespace Pjpl\SimaticServerBundle\Command;
 /**
  * Komenda wysyłana do procesu.
- * Na podstawie atrybutów komend pochodnych tworzy strumień bajtowy zrzutowany na string.
+ * Na podstawie atrybutów komend pochodnych tworzy strumień bajtowy rzutowany na string.
  *
  * Domyślny format bufora - stała zawartość dla każdego pochodnego Command
  * buff[0]
@@ -16,6 +16,42 @@ namespace Pjpl\SimaticServerBundle\Command;
  */
 abstract class Command {
 	const MAX_SOCKET_RECEIVE = 100000; //!?
+	/**
+	 * Gniazdo do SimaticServer
+	 * @var socket
+	 */
+	protected $socket;
+	/**
+	 * String zawierający bufor do którego spakowano atrybuty komendy
+	 * @var string
+	 */
+	protected $commandStream = '';
+	/**
+	 * String zwrócony z SimaticServer jako zrzut atrybutów odpowiedzi.
+	 * @var string
+	 */
+	protected $responseStream = '';
+	/**
+	 * Budowniczy obiektu zawierającego odpowiedź na komendę
+	 * @var CommandResponseBuilder
+	 */
+	protected $responseBuilder;
+	/**
+	 * @var CommandResponse
+	 */
+	protected $commandResponse;
+	/**
+	 * Obiekt odpowiedzi zbudowany na podstawie $this->responseStream
+	 * @var CommandResponse
+	 */
+	protected $responseObject;
+	/**
+	 * Identyfikator procesu, który powinien wykonać komendę
+	 * Wartość zmiennej przekazywana jest w parametrach komendy w buforze za kodem Komendy.
+	 * @var byte
+	 */
+	private $processId;
+
 	/**
 	 * @param byte processId identyfikator procesu dla którym ma być wykonana komenda
 	 * @param socket gniazdo do SimaticServer
@@ -61,46 +97,5 @@ abstract class Command {
 	 *			. BigEndian::byteToPack($this->getJakasKolejnaWartosc());
 	 */
 	protected abstract function buildCommandStream();
-
-	//------------------------------------------------------------------------------
-
-	/**
-	 * Gniado do SimaticServer
-	 * @var socket
-	 */
-	protected $socket;
-	/**
-	 * String zawierający bufor do którego spakowano atrybuty komendy
-	 * @var string
-	 */
-	protected $commandStream = '';
-	/**
-	 * String zwrócony z SimaticServer jako zrzut attrybutów odpowiedzi.
-	 * @var string
-	 */
-	protected $responseStream = '';
-	/**
-	 * Budowniczy obiektu zawierającego odpowiedź na komendę
-	 * @var CommandResponseBuilder
-	 */
-	protected $responseBuilder;
-	/**
-	 * @var CommandResponse
-	 */
-	protected $commandResponse;
-	/**
-	 * Obiekt odpowiedzi zbudowany na podstawie $this->responseStream
-	 * @var CommandResponse
-	 */
-	protected $responseObject;
-
-	//------------------------------------------------------------------------------
-
-	/**
-	 * Identyfikator procesu, który powinien wykonać komendę
-	 * Wartość zmiennej przekazywana jest w parametrach komendy w buforze za kodem Komendy.
-	 * @var byte
-	 */
-	private $processId;
 
 }

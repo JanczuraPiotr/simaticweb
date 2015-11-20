@@ -6,10 +6,14 @@ use Pjpl\lib\BigEndian;
 /**
  * @todo Description of D_GetByte
  *
- * @author piotr
+ * @author Piotr Janczura <piotr@janczura.pl>
  */
 class D_GetByte extends Command{
-
+	/**
+	 * adres komórki pamięci
+	 * @var short
+	 */
+	private $addr;
 	/**
 	 * @param byte $processId identyfikator procesu dla którym ma być wykonana komenda
 	 * @param short $addr adres komórki pamięci
@@ -35,9 +39,4 @@ class D_GetByte extends Command{
 		return $this->addr;
 	}
 
-	/**
-	 * adres komórki pamięci
-	 * @var short
-	 */
-	private $addr;
 }

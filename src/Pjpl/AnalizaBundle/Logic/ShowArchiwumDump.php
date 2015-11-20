@@ -8,7 +8,26 @@ use Pjpl\SimaticServerBundle\Entity\Process1Repository;
  * @author Piotr Janczura <piotr@janczura.pl>
  */
 class ShowArchiwumDump {
-
+	private $result;
+	/**
+	 * @var Paginator
+	 */
+	private $paginator;
+	/**
+	 * @var Process1Repository
+	 */
+	private $process1Repo;
+	/**
+	 * numer strony
+	 * @var int
+	 */
+	private $pageNr;
+	/**
+	 * ilość elementów na stronę
+	 * @var int
+	 */
+	private $itemsPerPage;
+	
 	/**
 	 * @param Paginator $paginator
 	 * @param BramaRepository $process1Repo
@@ -30,23 +49,5 @@ class ShowArchiwumDump {
 		);
 		return $this->result;
 	}
-	private $result;
-	/**
-	 * @var Paginator
-	 */
-	private $paginator;
-	/**
-	 * @var Process1Repository
-	 */
-	private $process1Repo;
-	/**
-	 * numer strony
-	 * @var int
-	 */
-	private $pageNr;
-	/**
-	 * ilość elementów na stronę
-	 * @var int
-	 */
-	private $itemsPerPage;
+
 }

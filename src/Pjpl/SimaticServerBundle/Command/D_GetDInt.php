@@ -6,9 +6,14 @@ use Pjpl\lib\BigEndian;
 /**
  * @todo Description of D_GetDInt
  *
- * @author piotr
+ * @author Piotr Janczura <piotr@janczura.pl>
  */
 class D_GetDInt extends Command{
+	/**
+	 * adres komórki pamięci
+	 * @var short
+	 */
+	private $varCode;
 
 	/**
 	 * @param byte $processId identyfikator procesu dla którym ma być wykonana komenda
@@ -35,9 +40,4 @@ class D_GetDInt extends Command{
 		return $this->varCode;
 	}
 
-	/**
-	 * adres komórki pamięci
-	 * @var short
-	 */
-	private $varCode;
 }

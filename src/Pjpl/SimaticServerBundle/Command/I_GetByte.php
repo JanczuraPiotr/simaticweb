@@ -9,6 +9,12 @@ use Pjpl\lib\BigEndian;
  */
 class I_GetByte extends Command{
 	/**
+	 * numer ośmiobitowej grupy portów
+	 * @var short
+	 */
+	private $portGroup;
+
+	/**
 	 * @param byte $processId identyfikator procesu dla którym ma być wykonana komenda
 	 * @param short $portGroup numer ośmobitowej grupy portów
 	 * @param socket $socket gniazdo do SimaticServer
@@ -31,10 +37,4 @@ class I_GetByte extends Command{
 	public function getCommandCode() {
 		return CommandCode::I_GET_BYTE_short;
 	}
-
-	/**
-	 * numer ośmobitowej grupy portów
-	 * @var short
-	 */
-	private $portGroup;
 }

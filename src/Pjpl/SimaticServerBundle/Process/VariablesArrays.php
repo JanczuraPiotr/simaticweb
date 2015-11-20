@@ -9,6 +9,63 @@ use Pjpl\lib\BigEndian;
  * @author Piotr Janczura <piotr@janczura.pl>
  */
 class VariablesArrays {
+
+	/**
+	 * @var int
+	 */
+	private $buffQlength = 0;
+
+	const SYGNATURA_LENGHT = 5;
+	const WYMIARY_LENGTH = 12;
+	const NAGLOWEK_LENGTH = 17;
+	const DATA_START = 17;
+	const D_LENGTH_POS =  5;
+	const I_LENGTH_POS =  9;
+	const Q_LENGTH_POS =  13;
+	/**
+	 * @var array
+	 */
+	private $D;
+	/**
+	 * @var array
+	 */
+	private $I;
+	/**
+	 * @var array
+	 */
+	private $Q;
+
+	/**
+	 * @var byte
+	 */
+	private $zmiennaByte;
+	/**
+	 * @var short
+	 */
+	private $zmiennaInt;
+	/**
+	 * @var int
+	 */
+	private $zmiennaDInt;
+	/**
+	 * @var float
+	 */
+	private $zmiennaReal;
+
+	private $I_0_0;
+	private $I_0_1;
+	private $I_0_2;
+	private $I_0_3;
+	private $I_0_4;
+	private $I_0_5;
+	private $I_0_6;
+	private $I_0_7;
+	private $Q_0_0;
+	private $Q_0_1;
+	private $Q_0_2;
+	private $Q_0_3;
+	private $Q_0_4;
+
 	public function __construct(array $params) {
 		$this->D = $params['D'];
 		$this->I = $params['I'];
@@ -181,80 +238,4 @@ class VariablesArrays {
 		return $this->Q[$start];
 	}
 
-	/**
-	 * @var int
-	 */
-	private $startD;
-	/**
-	 * @var int
-	 */
-	private $buffDlength = 0;
-	/**
-	 * @var int
-	 */
-	private $startI;
-	/**
-	 * @var int
-	 */
-	private $buffIlength = 0;
-	/**
-	 * @var int
-	 */
-	private $startQ;
-	/**
-	 * @var int
-	 */
-	private $buffQlength = 0;
-
-	const SYGNATURA_LENGHT = 5;
-	const WYMIARY_LENGTH = 12;
-	const NAGLOWEK_LENGTH = 17;
-	const DATA_START = 17;
-	const D_LENGTH_POS =  5;
-	const I_LENGTH_POS =  9;
-	const Q_LENGTH_POS =  13;
-
-	/**
-	 * @var array
-	 */
-	private $D;
-	/**
-	 * @var array
-	 */
-	private $I;
-	/**
-	 * @var array
-	 */
-	private $Q;
-
-	/**
-	 * @var byte
-	 */
-	private $zmiennaByte;
-	/**
-	 * @var short
-	 */
-	private $zmiennaInt;
-	/**
-	 * @var int
-	 */
-	private $zmiennaDInt;
-	/**
-	 * @var float
-	 */
-	private $zmiennaReal;
-
-	private $I_0_0;
-	private $I_0_1;
-	private $I_0_2;
-	private $I_0_3;
-	private $I_0_4;
-	private $I_0_5;
-	private $I_0_6;
-	private $I_0_7;
-	private $Q_0_0;
-	private $Q_0_1;
-	private $Q_0_2;
-	private $Q_0_3;
-	private $Q_0_4;
 }

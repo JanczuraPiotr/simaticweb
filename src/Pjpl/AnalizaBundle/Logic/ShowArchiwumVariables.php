@@ -3,13 +3,32 @@ namespace Pjpl\AnalizaBundle\Logic;
 
 use Knp\Component\Pager\Paginator;
 use Pjpl\SimaticServerBundle\Entity\Process1Repository;
-use Pjpl\SimaticServerBundle\Process\VariablesArrays;
+
 /**
  * @todo Description of ShowArchiwumVariables
  *
  * @author Piotr Janczura <piotr@janczura.pl>
  */
 class ShowArchiwumVariables {
+	private $result;
+	/**
+	 * @var Paginator
+	 */
+	private $paginator;
+	/**
+	 * @var Process1Repository
+	 */
+	private $process1Repo;
+	/**
+	 * numer strony
+	 * @var int
+	 */
+	private $pageNr;
+	/**
+	 * ilość elementów na stronę
+	 * @var int
+	 */
+	private $itemsPerPage;
 
 	/**
 	 * @param Paginator $paginator
@@ -33,23 +52,5 @@ class ShowArchiwumVariables {
 		$this->result = $records;
 		return $this->result;
 	}
-	private $result;
-	/**
-	 * @var Paginator
-	 */
-	private $paginator;
-	/**
-	 * @var Process1Repository
-	 */
-	private $process1Repo;
-	/**
-	 * numer strony
-	 * @var int
-	 */
-	private $pageNr;
-	/**
-	 * ilość elementów na stronę
-	 * @var int
-	 */
-	private $itemsPerPage;
+
 }

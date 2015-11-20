@@ -4,10 +4,41 @@ use Pjpl\lib\BigEndian;
 use Pjpl\SimaticServerBundle\S7\Common\ResponseCode;
 /**
  * Klasa budująca obiekt opisujący odpowiedź nadesłaną z SimaticServer w odpowiedzi na komendę.
-
+ *
  * @author Piotr Janczura <piotr@janczura.pl>
  */
 class CommandResponseBuilder {
+	/**
+	 * Identyfikator procesu
+	 * @var byte
+	 */
+	private $processId;
+	/**
+	 * Kod komendy na którą odebrany strumień jest odpowiedzią
+	 * @var short
+	 */
+	private $commandCode;
+	/**
+	 * Kod odpebranej odpowiedzi
+	 * @var short
+	 */
+	private $responseCode;
+	/**
+	 * Obiekt odpowiedzi zbudowany na podstawie $this->responseStream
+	 * @var CommandResponse
+	 */
+	private $responseObject = null;
+	/**
+	 * Gniazdo do SimaticServer
+	 * @var resource
+	 */
+	private $socket;
+	/**
+	 * Strumień odebrany z SimaticServer zawierający zrzut atrybutów obiektu będącego odpowiedzią na komendę.
+	 * @var string
+	 */
+	private $responseStream;
+
 	/**
 	 * @param resurce $socket gniazdo do SimaticServer
 	 * @param string $responseStream odpowiedz nadesłana gniazdem
@@ -16,7 +47,6 @@ class CommandResponseBuilder {
 		$this->socket = $socket;
 		$this->responseStream = $responseStream;
 	}
-
 	/**
 	 * Parsuje odpowiedź i tworzy atrybuty odpowiednie dla klas pochodnych.
 	 * Dostęp do tych atrybutów należy udostępnić poprzez metody getXXX
@@ -126,37 +156,4 @@ class CommandResponseBuilder {
 	public function getCommandStream(){
 		return $this->responseStream;
 	}
-
-	//------------------------------------------------------------------------------
-
-	/**
-	 * Identyfikator procesu
-	 * @var byte
-	 */
-	private $processId;
-	/**
-	 * Kod komendy na którą odebrany strumień jest odpowiedzią
-	 * @var short
-	 */
-	private $commandCode;
-	/**
-	 * Kod odpebranej odpowiedzi
-	 * @var short
-	 */
-	private $responseCode;
-	/**
-	 * Obiekt odpowiedzi zbudowany na podstawie $this->responseStream
-	 * @var CommandResponse
-	 */
-	private $responseObject = null;
-	/**
-	 * Gniazdo do SimaticServer
-	 * @var resource
-	 */
-	private $socket;
-	/**
-	 * Strumień odebrany z SimaticServer zawierający zrzut atrybutów obiektu będącego odpowiedzią na komendę.
-	 * @var string
-	 */
-	private $responseStream;
 }

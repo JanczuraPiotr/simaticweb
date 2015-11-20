@@ -5,9 +5,19 @@ use Pjpl\lib\BigEndian;
 /**
  * @todo Description of D_SetByte
  *
- * @author piotr
+ * @author Piotr Janczura <piotr@janczura.pl>
  */
 class D_SetByte extends Command{
+	/**
+	 * adres zmiennej
+	 * @var short
+	 */
+	private $addr;
+	/**
+	 * wartość zmiennej
+	 * @var byte
+	 */
+	private $val;
 
 	/**
 	 * @param byte $processId identyfikator procesu dla którym ma być wykonana komenda
@@ -45,16 +55,5 @@ class D_SetByte extends Command{
 	public function getVal(){
 		return $this->val;
 	}
-
-	/**
-	 * adres zmiennej
-	 * @var short
-	 */
-	private $addr;
-	/**
-	 * wartość zmiennej
-	 * @var byte
-	 */
-	private $val;
 
 }

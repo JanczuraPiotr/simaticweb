@@ -8,6 +8,17 @@ use Pjpl\lib\BigEndian;
  * @author piotr
  */
 class D_SetReal extends Command{
+	/**
+	 * kod zmiennej zmiennej
+	 * @var short
+	 */
+	private $varCode;
+	/**
+	 * wartość zmiennej
+	 * @var float
+	 */
+	private $varVal;
+
 	public function __construct($processId, $varCode, $varVal, $socket) {
 		parent::__construct($processId, $socket);
 		$this->varCode = $varCode;
@@ -20,10 +31,6 @@ class D_SetReal extends Command{
 				. BigEndian::byteToPack($this->getProcessId())
 				. BigEndian::shortToPack($this->getVarCode())
 				. BigEndian::floatToPack($this->getVarVal());
-//		$stream = $this->commandStream;
-//		for( $i = 0 ; $i < strlen($stream); $i++ ){
-//			echo sprintf("buff[%d] = 0x%02X <br>",$i, BigEndian::byteFromPack($stream,$i));
-//		}
 	}
 
 	public function getCommandCode() {
@@ -42,15 +49,4 @@ class D_SetReal extends Command{
 	public function getVarVal(){
 		return $this->varVal;
 	}
-
-	/**
-	 * kod zmiennej zmiennej
-	 * @var short
-	 */
-	private $varCode;
-	/**
-	 * wartość zmiennej
-	 * @var float
-	 */
-	private $varVal;
 }

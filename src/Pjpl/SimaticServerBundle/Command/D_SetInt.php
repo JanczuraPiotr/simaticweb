@@ -8,6 +8,17 @@ use Pjpl\lib\BigEndian;
  * @author piotr
  */
 class D_SetInt extends Command{
+	/**
+	 * kod zmiennej zmiennej
+	 * @var short
+	 */
+	private $varCode;
+	/**
+	 * wartość zmiennej
+	 * @var short
+	 */
+	private $varVal;
+
 	public function __construct($processId, $varCode, $varVal, $socket) {
 		parent::__construct($processId, $socket);
 		$this->varCode = $varCode;
@@ -38,15 +49,4 @@ class D_SetInt extends Command{
 	public function getVarVal(){
 		return $this->varVal;
 	}
-
-	/**
-	 * kod zmiennej zmiennej
-	 * @var short
-	 */
-	private $varCode;
-	/**
-	 * wartość zmiennej
-	 * @var short
-	 */
-	private $varVal;
 }

@@ -7,6 +7,11 @@ use Pjpl\lib\BigEndian;
  */
 class ResponseByte extends CommandResponse{
 	/**
+	 * @var byte
+	 */
+	private $byte;
+
+	/**
 	 * Wartość zwrócona jako parametr odpowiedzi
 	 * @return byte
 	 */
@@ -17,8 +22,4 @@ class ResponseByte extends CommandResponse{
 	protected function parseResponseStream() {
 		$this->byte = BigEndian::byteFromPack(substr($this->getResponseStream(),5,1));
 	}
-	/**
-	 * @var byte
-	 */
-	private $byte;
 }

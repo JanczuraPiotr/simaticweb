@@ -17,13 +17,9 @@ class AjaxController extends Controller{
 
 
 	public function setDAction(Request $request){
-		$ip = $this->container->getParameter('simatic_server')['ip'];
-		$port = $this->container->getParameter('simatic_server')['port'];
-		$timeout_sek = $this->container->getParameter('simatic_server')['timeout_sek'];
-		$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
-		socket_set_option($socket,SOL_SOCKET, SO_RCVTIMEO, array("sec"=>$timeout_sek, "usec"=>0));
-		$socket_connect = socket_connect($socket, $ip , $port);
 		$processId = ConstProcess::PROCESS1_ID_byte;
+		$simaticServerSocket = $this->get('simatic_server_socket');
+		$socket = $simaticServerSocket->getSocket();
 
 		$request = $this->container->get('request');
 		$memType = $request->query->get('memType');
@@ -35,7 +31,7 @@ class AjaxController extends Controller{
 		$json = [
 				'memType' => $memType,
 				'varCode' => $varCode,
-				'varVal' => $varVal,
+				'varVal'  => $varVal,
 		];
 
 		switch ($varType){
@@ -62,12 +58,6 @@ class AjaxController extends Controller{
 	}
 
 	public function switchPortAction(Request $request){
-		$ip = $this->container->getParameter('simatic_server')['ip'];
-		$port = $this->container->getParameter('simatic_server')['port'];
-		$timeout_sek = $this->container->getParameter('simatic_server')['timeout_sek'];
-		$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
-		socket_set_option($socket,SOL_SOCKET, SO_RCVTIMEO, array("sec"=>$timeout_sek, "usec"=>0));
-		$socket_connect = socket_connect($socket, $ip , $port);
 		$processId = ConstProcess::PROCESS1_ID_byte;
 
 		$request = $this->container->get('request');
@@ -81,6 +71,8 @@ class AjaxController extends Controller{
 				'varCode' => $varCode,
 				'bit' => $bit,
 		];
+
+		$socket = $this->get('simatic_server_socket')->getSocket();
 		$command = new BitSwitch($processId, $memType, $varCode, $bit, $socket);
 		$responseObject = $command->action();
 
@@ -89,48 +81,27 @@ class AjaxController extends Controller{
 	}
 
 	public function setPortAction(Request $request){
-//		$ip = $this->container->getParameter('simatic_server')['ip'];
-//		$port = $this->container->getParameter('simatic_server')['port'];
-//		$timeout_sek = $this->container->getParameter('simatic_server')['timeout_sek'];
-//		$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
-//		socket_set_option($socket,SOL_SOCKET, SO_RCVTIMEO, array("sec"=>$timeout_sek, "usec"=>0));
-//		$socket_connect = socket_connect($socket, $ip , $port);
-//		$processId = ConstProcess::PROCESS1_ID_byte;
-
-		$request = $this->container->get('request');
 		$port = $request->query->get('port');
 		$bit = $request->query->get('bit');
 		$onOff = $request->get('onOff');
 
-		$json = [
+		// @prace akcja nie wysyła komendy do servera
+
+		$arr = [
 				'port' => $port,
 				'bit' => $bit,
 				'onOff' => $onOff
 		];
 
-		$json = json_encode($json, JSON_UNESCAPED_UNICODE);
-		return new Response($json ,200, ['Content-Type'=>'application/json']);
+		$json = json_encode($arr, JSON_UNESCAPED_UNICODE);
+		return new Response($json, 200, ['Content-Type'=>'application/json']);
 	}
 
 	public function raportAction(Request $request){
-		$ip = $this->container->getParameter('simatic_server')['ip'];
-		$port = $this->container->getParameter('simatic_server')['port'];
-		$timeout_sek = $this->container->getParameter('simatic_server')['timeout_sek'];
-		$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
-		socket_set_option($socket,SOL_SOCKET, SO_RCVTIMEO, array("sec"=>$timeout_sek, "usec"=>0));
-		$socket_connect = socket_connect($socket, $ip , $port);
 		$processId = ConstProcess::PROCESS1_ID_byte;
 
-
-//		$ip = $this->container->getParameter('simatic_server')['ip'];
-//		$port = $this->container->getParameter('simatic_server')['port'];
-//		$timeout_sek = $this->container->getParameter('simatic_server')['timeout_sek'];
-//		$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
-//		socket_set_option($socket,SOL_SOCKET, SO_RCVTIMEO, array("sec"=>$timeout_sek, "usec"=>0));
-//		$socket_connect = socket_connect($socket, $ip , $port);
-//		$processId = ConstProcess::PROCESS1_ID_byte;
-
-		$command = new CommandRaportFull($processId, $socket);
+		$simaticServerSocket = $this->get('simatic_server_socket');
+		$command = new CommandRaportFull($processId, $simaticServerSocket->getSocket());
 		$responseObject = $command->action();
 
 		$variables = new VariablesRaport(['raport'=> $responseObject]);

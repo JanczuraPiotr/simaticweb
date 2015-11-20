@@ -11,14 +11,9 @@ use Symfony\Component\HttpFoundation\Response;
 class SimaticServerController extends Controller
 {
 	public function indexAction(){
-		$ip = $this->container->getParameter('simatic_server')['ip'];
-		$port = $this->container->getParameter('simatic_server')['port'];
-		$timeout_sek = $this->container->getParameter('simatic_server')['timeout_sek'];
-		$socket = socket_create(AF_INET, SOCK_STREAM,SOL_TCP);
-		socket_set_option($socket,SOL_SOCKET, SO_RCVTIMEO, array("sec"=>$timeout_sek, "usec"=>0));
-		$socket_connect = socket_connect($socket, $ip , $port);
 		$processId = ConstProcess::PROCESS1_ID_byte;
-
+		$simaticServerSocket = $this->get('simatic_server_socket');
+		$socket = $simaticServerSocket->getSocket();
 
 		$commandCode = CommandCode::Q_SET_BYTE_short; //
 		$processId = ConstProcess::PROCESS1_ID_byte; // Process1
