@@ -1,5 +1,9 @@
-{% extends "PjplScadaBundle::scada-bundle.html.twig" %}
+{% extends "PjplDevBundle::dev-bundle.html.twig" %}
 
+{% block css %}
+	{{ parent() }}
+	<link href="{{ asset('bundles/pjplscada/css/scada.css') }}" type="text/css" rel="stylesheet"/>
+{% endblock %}
 
 {% block body %}
 	<div id="pomiary">
@@ -77,6 +81,9 @@
 {% block javascripts %}
 	{{ parent() }}
 
+	<script src="{{ asset('bundles/pjplsimaticserver/js/s7.js') }}"></script>
+	<script src="{{ asset('bundles/pjplscada/js/scada-config.js') }}"></script>
+	<script src="{{ asset('bundles/pjplscada/js/scada-init.js') }}"></script>
 	<script src="{{ asset('bundles/pjplscada/js/scada-panel.js') }}"></script>
 	<script src="{{ asset('bundles/pjplscada/js/scada-panel-app.js') }}"></script>
 {% endblock %}

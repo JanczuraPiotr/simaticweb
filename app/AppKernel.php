@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new Pjpl\SimaticServerBundle\PjplSimaticServerBundle(),
             new Pjpl\ScadaBundle\PjplScadaBundle(),
             new Pjpl\AnalizaBundle\PjplAnalizaBundle(),
+            new Pjpl\SimaticDirectBundle\SimaticDirectBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

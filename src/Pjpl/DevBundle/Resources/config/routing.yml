@@ -54,6 +54,10 @@ dev_command_scada_raport:
   path: /command/scada-raport
   defaults: { _controller: PjplDevBundle:Command:scadaRaport }
 
+dev_direct_scada:
+  path: /scada
+  defaults: { _controller: PjplDevBundle:Direct:scada }
+
 dev_analiza_zmienne_archiwalne:
   path: /analiza/zmienne_archiwalne
   defaults: { _controller: PjplDevBundle:Analiza:zmienneArchiwalne }

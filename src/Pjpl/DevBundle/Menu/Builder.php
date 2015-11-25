@@ -24,6 +24,11 @@ class Builder {
 		$menuDevCommands->addChild('D_SET_REAL', ['route' => 'dev_command_D_SET_REAL']);
 		$menuDevCommands->addChild('Raport dla scada', ['route' => 'dev_command_scada_raport']);
 
+		$menuDirectController = $menu->addChild('Direct');
+		$menuDirectController->addChild('SCADA', [
+				'route' => 'dev_direct_scada'
+		]);
+
 		$menuDevAnaliza = $menu->addChild('Analiza');
 		$menuDevAnaliza->addChild('Zmienne archiwalne', [
 				'route' => 'dev_analiza_zmienne_archiwalne'
